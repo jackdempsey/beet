@@ -1,3 +1,4 @@
+require 'fileutils'
 module Beet
   module FileSystem
     # Create a new file in the project folder.  Specify the
