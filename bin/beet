@@ -5,7 +5,9 @@ require 'thor'
  
 class Beet < Thor
   default_task :help
+
   map "-g" => :generate
+  map "-h" => :help
 
   desc 'generate [app_name]', "the main app generate method"
   def generate(app_name)
@@ -15,7 +17,7 @@ class Beet < Thor
   desc 'help', 'help output'
   def help
 puts %{
-Usage: #{`which beet`.chomp} /path/to/your/app [options]
+Usage: #{$0} /path/to/your/app [options]
 
 Options:
 
