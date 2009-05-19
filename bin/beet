@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'thor'
 require 'ruby-debug'
+require 'lib/beet/commands'
  
 class Beet < Thor
   default_task :help
