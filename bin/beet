@@ -8,10 +8,19 @@ class Beet < Thor
 
   map "-g" => :generate
   map "-h" => :help
+  map "-v" => :version
 
   desc 'generate [app_name]', "the main app generate method"
   def generate(app_name)
     puts "about to build #{app_name}"
+  end
+
+  desc 'version', "the current version of beet"
+  def version
+    version_file = Dir.pwd + '/VERSION'
+    if File.exists?(version_file) and version = File.read(version_file)
+      puts "Beet version: #{version}"
+    end
   end
 
   desc 'help', 'help output'
