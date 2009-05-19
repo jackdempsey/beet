@@ -25,7 +25,7 @@ class Beet < Thor
 
   desc 'help', 'help output'
   def help
-puts %{
+    puts %{
 Usage: #{$0} /path/to/your/app [options]
 
 Options:
