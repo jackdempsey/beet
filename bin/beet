@@ -4,10 +4,33 @@ require 'rubygems'
 require 'thor'
  
 class Beet < Thor
-  desc 'run', "main run method"
-  def run(*args)
-    p "args are #{args}"
+  default_task :help
+  map "-g" => :generate
+
+  desc 'generate [app_name]', "the main app generate method"
+  def generate(app_name)
+    puts "about to build #{app_name}"
+  end
+
+  desc 'help', 'help output'
+  def help
+puts %{
+Usage: #{`which beet`.chomp} /path/to/your/app [options]
+
+Options:
+
+Beet Info:
+    -v, --version                    Show the Beet version number and quit.
+    -h, --help                       Show this help message and quit.
+
+General Options:
+
+Description:
+  Beet is used to quickly generate applications.
+
+Example:
+    beet example_app --git --clean_files 
+} 
   end
 end
- 
-Beet.new.run(ARGV.to_s)
+Beet.start
