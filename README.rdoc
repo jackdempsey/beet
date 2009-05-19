@@ -1,3 +1,7 @@
-=== beet
+= beet
 
-Beet is a gem that provides a simple method for building ruby projects based on templates.
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Jack Dempsey. See LICENSE for details.

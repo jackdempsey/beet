@@ -1,2 +1,9 @@
-$TESTING=true
-$:.push File.join(File.dirname(__FILE__), '..', 'lib')
+require 'spec'
+
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'beet'
+
+Spec::Runner.configure do |config|
+  
+end
