@@ -2,6 +2,7 @@
  
 require 'rubygems'
 require 'thor'
+require 'ruby-debug'
  
 class Beet < Thor
   default_task :help
@@ -11,8 +12,14 @@ class Beet < Thor
   map "-v" => :version
 
   desc 'generate [app_name]', "the main app generate method"
-  def generate(app_name)
-    puts "about to build #{app_name}"
+  def generate(app_name, type=:rails)
+    case type
+    when :rails
+      puts "Generating rails project #{app_name}..."
+      system("rails #{app_name}")
+    else
+      puts "type not recognized!"
+    end
   end
 
   desc 'version', "the current version of beet"
