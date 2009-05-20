@@ -9,7 +9,7 @@ module Beet
     # TODO create a better way to mixin things from rails/whatever as needed
     include Beet::Rails
     include Beet::Capistrano
-    include Beet::Scm
+    include Beet::SCM
 
     attr_reader :root
     attr_writer :logger
