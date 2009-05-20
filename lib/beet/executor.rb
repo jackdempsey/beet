@@ -5,11 +5,8 @@ module Beet
 
     def initialize(template, root = '') # :nodoc:
       @root = File.expand_path(File.directory?(root) ? root : File.join(Dir.pwd, root))
-
       log 'applying', "template: #{template}"
-
       load_template(template)
-
       log 'applied', "#{template}"
     end
 
