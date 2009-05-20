@@ -1,6 +1,12 @@
 = beet
 
-Description goes here.
+Beet is a simple project/app generator, with its roots and underlying infrastructure heavily influenced from Rails Templates.
+
+Currently Beet will focus on Rails template generation, but there's no reason not to extend it to build out any sort of project. 
+The goal is to have a variety of core level methods to allow for building of higher level concepts that make sense in whatever
+your project needs. 
+
+Eventually I would love to see strategies/templates for sinatra, merb, iPhone apps, etc. The sky is the limit.
 
 == Copyright
 
