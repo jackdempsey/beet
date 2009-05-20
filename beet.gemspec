@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
      "bin/beet",
      "lib/beet.rb",
      "lib/beet/capistrano.rb",
-     "lib/beet/commands.rb",
      "lib/beet/execution.rb",
      "lib/beet/executor.rb",
      "lib/beet/file_system.rb",
