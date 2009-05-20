@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "beet"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{A gem to help with easily generating projects}
     gem.email = "jack.dempsey@gmail.com"
     gem.homepage = "http://github.com/jackdempsey/beet"
     gem.authors = ["Jack Dempsey"]
