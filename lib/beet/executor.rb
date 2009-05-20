@@ -6,6 +6,11 @@ module Beet
     include Beet::Interaction
     include Beet::Logging
 
+    # TODO create a better way to mixin things from rails/whatever as needed
+    include Beet::Rails
+    include Beet::Capistrano
+    include Beet::Scm
+
     attr_reader :root
     attr_writer :logger
     attr_accessor :templates, :app_name
