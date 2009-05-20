@@ -8,14 +8,15 @@ module Beet
 
     attr_reader :root
     attr_writer :logger
-    attr_accessor :template
+    attr_accessor :template, :app_name
 
-    def initialize(template, root = '') # :nodoc:
-      @root = File.expand_path(File.directory?(root) ? root : File.join(Dir.pwd, root))
+    def initialize(template, app_name) # :nodoc:
+      @root = File.expand_path(File.join(Dir.pwd, app_name))
+      puts "root is #{@root}"
       @template = template
     end
 
-    def run
+    def run_template
       begin
         code = open(@template).read
         in_root { self.instance_eval(code) }

@@ -20,8 +20,8 @@ class BeetRunner < Thor
       puts "Generating rails project #{app_name}..."
       system("rails #{app_name}")
       if options[:template]
-        executor = Beet::Executor.new(options[:template])
-        executor.run
+        executor = Beet::Executor.new(options[:template], app_name)
+        executor.run_template
       end
     else
       puts "type not recognized!"
