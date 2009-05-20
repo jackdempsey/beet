@@ -16,7 +16,7 @@ module Beet
       templates.split(/[\s,]+/).each do |template|
         @templates << (if !File.exists?(template) and !template.include?('http')
                         # they're trying to use a named template from the templates directory
-                        File.expand_path(File.join('lib', 'beet', 'templates', "#{template}.rb"))
+                        File.expand_path(File.join(File.dirname(__FILE__), 'templates', "#{template}.rb"))
                       else
                         template
                       end)
