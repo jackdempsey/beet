@@ -8,6 +8,12 @@ your project needs.
 
 Eventually I would love to see strategies/templates for sinatra, merb, iPhone apps, etc. The sky is the limit.
 
+== Existing Templates
+
+Beet should be compatible with existing rails templates. For instance, to use the daring.rb template, you can run:
+
+beet generate new_daring_project --templates http://github.com/jeremymcanally/rails-templates/raw/10f5bc25e4067968dcf3e950a95538dcbc1f79ed/daring.rb
+
 == Copyright
 
 Copyright (c) 2009 Jack Dempsey. See LICENSE for details.
