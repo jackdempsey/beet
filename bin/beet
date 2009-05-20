@@ -3,7 +3,8 @@
 require 'rubygems'
 require 'thor'
 require 'ruby-debug'
-require 'lib/beet'
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+require 'beet'
  
 class BeetRunner < Thor
   default_task :help
@@ -13,15 +14,15 @@ class BeetRunner < Thor
   map "-v" => :version
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options :template => :optional
+  method_options :templates => :optional
   def generate(app_name, type=:rails)
     case type
     when :rails
       puts "Generating rails project #{app_name}..."
       system("rails #{app_name}")
-      if options[:template]
-        executor = Beet::Executor.new(options[:template], app_name)
-        executor.run_template
+      if options[:templates]
+        executor = Beet::Executor.new(options[:templates], app_name)
+        executor.run_templates
       end
     else
       puts "type not recognized!"

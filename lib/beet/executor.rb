@@ -8,20 +8,29 @@ module Beet
 
     attr_reader :root
     attr_writer :logger
-    attr_accessor :template, :app_name
+    attr_accessor :templates, :app_name
 
-    def initialize(template, app_name) # :nodoc:
+    def initialize(templates, app_name) # :nodoc:
       @root = File.expand_path(File.join(Dir.pwd, app_name))
-      puts "root is #{@root}"
-      @template = template
+      @templates = []
+      templates.split(/[\s,]+/).each do |template|
+        @templates << (if !File.exists?(template) and !template.include?('http')
+                        # they're trying to use a named template from the templates directory
+                        File.expand_path(File.join('lib', 'beet', 'templates', "#{template}.rb"))
+                      else
+                        template
+                      end)
+      end
     end
 
-    def run_template
-      begin
-        code = open(@template).read
-        in_root { self.instance_eval(code) }
-      rescue LoadError, Errno::ENOENT => e
-        raise "The template [#{template}] could not be loaded. Error: #{e}"
+    def run_templates
+      @templates.each do |template|
+        begin
+          code = open(template).read
+          in_root { self.instance_eval(code) }
+        rescue LoadError, Errno::ENOENT => e
+          raise "The template [#{template}] could not be loaded. Error: #{e}"
+        end
       end
     end
 
