@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{beet}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "TODO",
      "VERSION",
+     "beet.gemspec",
      "bin/beet",
      "lib/beet.rb",
      "lib/beet/capistrano.rb",
@@ -33,6 +34,7 @@ Gem::Specification.new do |s|
      "lib/beet/scm.rb",
      "lib/beet/scm/git.rb",
      "lib/beet/scm/svn.rb",
+     "lib/beet/templates/git.rb",
      "spec/beet_spec.rb",
      "spec/spec_helper.rb"
   ]
