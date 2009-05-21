@@ -244,3 +244,9 @@ class BeetAuthlogicCreateUser < ActiveRecord::Migration
 end
 }
 end
+
+gem 'authlogic'
+
+rake("gems:install", :sudo => true)
+
+rake "db:migrate"
