@@ -131,7 +131,7 @@ end
 
 file "app/views/users/_form.html.erb" do
     %{
-= form.label :login %><br />
+<%= form.label :email %><br />
 <%= form.text_field :email %><br />
 <br />
 <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
@@ -171,7 +171,7 @@ end
 file "app/views/users/show.html.erb" do
     %{
 <p>
-  <b>Login:</b>
+  <b>Email:</b>
   <%=h @user.email %>
 </p>
  
