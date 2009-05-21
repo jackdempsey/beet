@@ -39,3 +39,5 @@ production:
   database: #{project_name}_production
 }
 end
+
+FileUtils.copy "config/database.yml", "config/database.yml.example"
