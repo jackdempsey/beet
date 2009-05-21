@@ -1,22 +1,22 @@
 require 'open-uri'
+require 'beet/logger'
 module Beet
   class Executor
     include Beet::Execution
     include Beet::FileSystem
     include Beet::Interaction
-    include Beet::Logging
 
     # TODO create a better way to mixin things from rails/whatever as needed
     include Beet::Rails
     include Beet::Capistrano
     include Beet::SCM
 
-    attr_reader :root
-    attr_writer :logger
+    attr_reader :root, :logger
     attr_accessor :templates, :app_name
 
     def initialize(templates, app_name) # :nodoc:
       @root = File.expand_path(File.join(Dir.pwd, app_name))
+      @logger = Beet::Logger.new
       @templates = []
       templates.split(/[\s,]+/).each do |template|
         if file = template_location(template)
@@ -34,6 +34,10 @@ module Beet
           raise "The template [#{template}] could not be loaded. Error: #{e}"
         end
       end
+    end
+
+    def log(*args)
+      logger.log(*args)
     end
 
     private
