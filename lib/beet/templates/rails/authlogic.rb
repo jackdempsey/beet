@@ -46,8 +46,7 @@ end
 end
 
 
-inside "app/views/user_sessions" do
-  file "new.html.erb" do
+file "app/views/user_sessions/new.html.erb" do
     %{
 <h1>Login</h1>
 
@@ -131,8 +130,7 @@ end
 }
 end
 
-inside "app/views/users" do
-  file "_form.html.erb" do
+file "app/views/users/_form.html.erb" do
     %{
 = form.label :login %><br />
 <%= form.text_field :login %><br />
