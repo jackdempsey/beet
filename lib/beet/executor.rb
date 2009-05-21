@@ -12,10 +12,11 @@ module Beet
     include Beet::SCM
 
     attr_reader :root, :logger
-    attr_accessor :templates, :app_name
+    attr_accessor :templates, :project_name
 
-    def initialize(templates, app_name) # :nodoc:
-      @root = File.expand_path(File.join(Dir.pwd, app_name))
+    def initialize(templates, project_name) # :nodoc:
+      @root = File.expand_path(File.join(Dir.pwd, project_name))
+      @project_name = project_name
       @logger = Beet::Logger.new
       @templates = []
       templates.split(/[\s,]+/).each do |template|
