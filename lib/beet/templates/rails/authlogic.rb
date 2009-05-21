@@ -218,7 +218,7 @@ end
 run "script/generate migration beet_authlogic_create_user"
 
 #now open it
-file "db/migrate/*beet_authlogic_create_user*" do
+file(Dir.glob('db/migrate/*beet_authlogic_create_user*').first) do
   %{
 class BeetAuthlogicCreateUser < ActiveRecord::Migration
   def self.up
