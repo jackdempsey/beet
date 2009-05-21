@@ -19,12 +19,9 @@ module Beet
       @root = File.expand_path(File.join(Dir.pwd, app_name))
       @templates = []
       templates.split(/[\s,]+/).each do |template|
-        @templates << (if !File.exists?(template) and !template.include?('http')
-                        # they're trying to use a named template from the templates directory
-                        File.expand_path(File.join(File.dirname(__FILE__), 'templates', "#{template}.rb"))
-                      else
-                        template
-                      end)
+        if file = template_location(template)
+          @templates << file
+        end
       end
     end
 
@@ -39,5 +36,17 @@ module Beet
       end
     end
 
+    private
+
+    def template_location(template)
+      return template if File.exists?(template) or template.include?('http://')
+      locations = []
+      locations << File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+      locations << File.expand_path(ENV['BEET_TEMPLATES_DIR']) if ENV['BEET_TEMPLATES_DIR']
+      locations.each do |location|
+        filename = File.join(location, "#{template}.rb")
+        return filename if File.exists?(filename)
+      end
+    end
   end
 end
