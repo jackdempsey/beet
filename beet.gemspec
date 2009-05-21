@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
      "lib/beet/scm.rb",
      "lib/beet/scm/git.rb",
      "lib/beet/scm/svn.rb",
+     "lib/beet/templates/rails/authlogic.rb",
      "lib/beet/templates/rails/clean_files.rb",
      "lib/beet/templates/rails/git.rb",
      "lib/beet/templates/rails/jquery.rb",
