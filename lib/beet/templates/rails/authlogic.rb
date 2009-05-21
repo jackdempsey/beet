@@ -52,8 +52,8 @@ file "app/views/user_sessions/new.html.erb" do
 
 <% form_for @user_session, :url => user_session_path do |f| %>
   <%= f.error_messages %>
-  <%= f.label :login %><br />
-  <%= f.text_field :login %><br />
+  <%= f.label :email %><br />
+  <%= f.text_field :email %><br />
   <br />
   <%= f.label :password %><br />
   <%= f.password_field :password %><br />
@@ -132,7 +132,7 @@ end
 file "app/views/users/_form.html.erb" do
     %{
 = form.label :login %><br />
-<%= form.text_field :login %><br />
+<%= form.text_field :email %><br />
 <br />
 <%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
 <%= form.password_field :password %><br />
@@ -172,7 +172,7 @@ file "app/views/users/show.html.erb" do
     %{
 <p>
   <b>Login:</b>
-  <%=h @user.login %>
+  <%=h @user.email %>
 </p>
  
 <p>
@@ -219,7 +219,6 @@ file(Dir.glob('db/migrate/*beet_authlogic_create_user*').first) do
 class BeetAuthlogicCreateUser < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string    :login,               :null => false                # optional, you can use email instead, or both
       t.string    :email,               :null => false                # optional, you can use login instead, or both
       t.string    :crypted_password,    :null => false                # optional, see below
       t.string    :password_salt,       :null => false                # optional, but highly recommended
@@ -247,6 +246,6 @@ end
 
 gem 'authlogic'
 
-rake("gems:install", :sudo => true)
-
+rake "gems:install", :sudo => true
+rake "db:create:all" 
 rake "db:migrate"
