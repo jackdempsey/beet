@@ -104,6 +104,20 @@ module Beet
       File.open(path, 'ab') { |file| file.write(data) }
     end
 
+    # Add text after matching line
+    #
+    # ==== Example
+    #
+    #    add_after 'config/environment.rb', '# config.gem "aws-s3", :lib => "aws/s3"'
+    #
+    def add_after(filename, matching_text, data=nil, &block)
+      gsub_file 'config/routes.rb', /(#{Regexp.escape(matching_text)})/mi do |match|
+        "#{match}\n  #{data || block.call}\n"
+      end
+    end
+
+    protected
+
     def destination_path(relative_destination)
       File.join(root, relative_destination)
     end
