@@ -41,8 +41,8 @@ module Beet
     def template_location(template)
       return template if File.exists?(template) or template.include?('http://')
       locations = []
-      locations << File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       locations << File.expand_path(ENV['BEET_TEMPLATES_DIR']) if ENV['BEET_TEMPLATES_DIR']
+      locations << File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       locations.each do |location|
         filename = File.join(location, "#{template}.rb")
         return filename if File.exists?(filename)
