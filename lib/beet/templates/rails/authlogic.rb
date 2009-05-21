@@ -63,7 +63,6 @@ file "app/views/user_sessions/new.html.erb" do
   <%= f.submit "Login" %>
 <% end %>
 }
-  end
 end
 
 
@@ -141,9 +140,9 @@ file "app/views/users/_form.html.erb" do
 <%= form.label :password_confirmation %><br />
 <%= form.password_field :password_confirmation %><br />
 }
-  end
+end
 
-  file "edit.html.erb" do
+file "app/views/users/edit.html.erb" do
     %{
 <h1>Edit My Account</h1>
  
@@ -155,9 +154,9 @@ file "app/views/users/_form.html.erb" do
  
 <br /><%= link_to "My Profile", account_path %>
 }
-  end
+end
 
-  file "new.html.erb" do
+file "app/views/users/new.html.erb" do
     %{
 <h1>Register</h1>
  
@@ -167,9 +166,9 @@ file "app/views/users/_form.html.erb" do
   <%= f.submit "Register" %>
 <% end %>
 }
-  end
+end
 
-  file "show.html.erb" do
+file "app/views/users/show.html.erb" do
     %{
 <p>
   <b>Login:</b>
@@ -209,7 +208,6 @@ file "app/views/users/_form.html.erb" do
  
 <%= link_to 'Edit', edit_account_path %>
 }
-  end
 end
 
 # can't rely on internal rails migration generation, so we do it this way
