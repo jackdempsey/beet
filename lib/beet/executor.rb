@@ -12,18 +12,35 @@ module Beet
     include Beet::SCM
 
     attr_reader :root, :logger
-    attr_accessor :templates, :project_name
+    attr_accessor :templates, :project_name, :gems
 
-    def initialize(templates, project_name) # :nodoc:
+    def initialize(project_name, options) # :nodoc:
       @root = File.expand_path(File.join(Dir.pwd, project_name))
       @project_name = project_name
       @logger = Beet::Logger.new
-      @templates = []
-      templates.split(/[\s,]+/).each do |template|
-        if file = template_location(template)
-          @templates << file
+      @gems = []
+      if options[:gems]
+        options[:gems].split(/[\s,]+/).each do |gem|
+          if location = gem_location(gem)
+            @gems << {:name => gem, :source => location}
+          else
+            puts "gem: #{gem} not found. Did you spell it correctly? If so, submit a patch with its location!"
+          end
         end
       end
+      @templates = []
+      if options[:templates]
+        options[:templates].split(/[\s,]+/).each do |template|
+          if file = template_location(template)
+            @templates << file
+          end
+        end
+      end
+    end
+
+    def start
+      run_templates
+      add_gems
     end
 
     def run_templates
@@ -37,11 +54,23 @@ module Beet
       end
     end
 
+    def add_gems
+      if @gems
+        @gems.each do |gem_data|
+          gem(gem_data[:name], :source => gem_data[:source])
+        end
+      end
+    end
+
     def log(*args)
       logger.log(*args)
     end
 
     private
+
+    def gem_location(gem_name)
+      GEM_LOCATIONS[gem_name]
+    end
 
     def template_location(template)
       return template if File.exists?(template) or template.include?('http://')
