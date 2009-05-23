@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
-  s.date = %q{2009-05-21}
+  s.date = %q{2009-05-23}
   s.default_executable = %q{beet}
   s.email = %q{jack.dempsey@gmail.com}
   s.executables = ["beet"]
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/beet/execution.rb",
      "lib/beet/executor.rb",
      "lib/beet/file_system.rb",
+     "lib/beet/gem_location_map.rb",
      "lib/beet/interaction.rb",
      "lib/beet/logger.rb",
      "lib/beet/rails.rb",
@@ -56,8 +57,11 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<thor>, [">= 0"])
     else
+      s.add_dependency(%q<thor>, [">= 0"])
     end
   else
+    s.add_dependency(%q<thor>, [">= 0"])
   end
 end
