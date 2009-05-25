@@ -12,6 +12,7 @@ class BeetRunner < Thor
   map "-g" => :generate
   map "-h" => :help
   map "-v" => :version
+  map "-l" => :list
 
   desc 'generate [app_name]', "the main app generate method"
   method_options :templates => :optional, :gems => :optional
@@ -27,9 +28,20 @@ class BeetRunner < Thor
     end
   end
 
+  desc 'list', "list what recipes beet knows about"
+  def list
+    paths = [] 
+    paths << File.dirname(__FILE__) + '/../lib/beet/templates/**/*.rb'
+    paths << ENV['BEET_TEMPLATES_DIR'] if ENV['BEET_TEMPLATES_DIR']
+    recipes = paths.map do |path|
+      Dir.glob(path)
+    end.flatten.compact
+    pp recipes
+  end
+
   desc 'version', "the current version of beet"
   def version
-    version_file = Dir.pwd + '/VERSION'
+    version_file = File.dirname(__FILE__) + '/../VERSION'
     if File.exists?(version_file) and version = File.read(version_file)
       puts "Beet version: #{version}"
     end
