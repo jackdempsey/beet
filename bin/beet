@@ -16,7 +16,7 @@ class BeetRunner < Thor
   map "-l" => :list
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options :templates => :optional, :gems => :optional
+  method_options :recipes => :optional, :gems => :optional
   def generate(app_name, type=:rails)
     case type
     when :rails
@@ -30,7 +30,7 @@ class BeetRunner < Thor
   end
 
   desc 'just_recipe', "when you just need a recipe"
-  method_options :templates => :optional, :gems => :optional
+  method_options :recipes => :optional, :gems => :optional
   def just_recipe
     executor = Beet::Executor.new('.', options)
     executor.start
@@ -39,8 +39,8 @@ class BeetRunner < Thor
   desc 'list', "list what recipes beet knows about"
   def list
     paths = [] 
-    paths << File.dirname(__FILE__) + '/../lib/beet/templates/**/*.rb'
-    paths << ENV['BEET_TEMPLATES_DIR'] if ENV['BEET_TEMPLATES_DIR']
+    paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
+    paths << ENV['BEET_RECIPES_DIR'] if ENV['BEET_RECIPES_DIR']
     recipes = paths.map do |path|
       Dir.glob(path)
     end.flatten.compact
@@ -74,7 +74,7 @@ Description:
   Beet is used to quickly generate applications.
 
 Example:
-    beet generate example_app --templates="rails/authlogic, rails/clean_files, rails/git"
+    beet generate example_app --recipes="rails/authlogic, rails/clean_files, rails/git"
     
     Same thing but shorter:
 

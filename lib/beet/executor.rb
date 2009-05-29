@@ -12,7 +12,7 @@ module Beet
     include Beet::SCM
 
     attr_reader :root, :logger
-    attr_accessor :templates, :project_name, :gems
+    attr_accessor :recipes, :project_name, :gems
 
     def initialize(project_name, options) # :nodoc:
       @root = File.expand_path(File.join(Dir.pwd, project_name))
@@ -28,31 +28,31 @@ module Beet
           end
         end
       end
-      @templates = []
-      if options[:templates]
-        options[:templates].split(/[\s,]+/).each do |template|
-          if file = template_location(template)
-            @templates << file
+      @recipes = []
+      if options[:recipes]
+        options[:recipes].split(/[\s,]+/).each do |recipe|
+          if file = recipe_location(recipe)
+            @recipes << file
           end
         end
       end
     end
 
     def start
-      run_templates
+      run_recipes
       add_gems
     end
 
-    def run_templates
-      if @templates.empty?
-        puts "No templates found."
+    def run_recipes
+      if @recipes.empty?
+        puts "No recipes found."
       else
-        @templates.each do |template|
+        @recipes.each do |recipe|
           begin
-            code = open(template).read
+            code = open(recipe).read
             in_root { self.instance_eval(code) }
           rescue LoadError, Errno::ENOENT => e
-            raise "The template [#{template}] could not be loaded. Error: #{e}"
+            raise "The recipe [#{recipe}] could not be loaded. Error: #{e}"
           end
         end
       end
@@ -76,13 +76,13 @@ module Beet
       GEM_LOCATIONS[gem_name]
     end
 
-    def template_location(template)
-      return template if File.exists?(template) or template.include?('http://')
+    def recipe_location(recipe)
+      return recipe if File.exists?(recipe) or recipe.include?('http://')
       locations = []
-      locations << File.expand_path(ENV['BEET_TEMPLATES_DIR']) if ENV['BEET_TEMPLATES_DIR']
-      locations << File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
+      locations << File.expand_path(ENV['BEET_RECIPES_DIR']) if ENV['BEET_RECIPES_DIR']
+      locations << File.expand_path(File.join(File.dirname(__FILE__), 'recipes'))
       locations.each do |location|
-        filename = File.join(location, "#{template}.rb")
+        filename = File.join(location, "#{recipe}.rb")
         return filename if File.exists?(filename)
       end
       nil
