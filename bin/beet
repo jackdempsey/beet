@@ -53,9 +53,11 @@ class BeetRunner < Thor
 Usage: #{$0} /path/to/your/app [options]
 
 Options:
+    -g, --generate                   Run the generate command to build a project
 
 Beet Info:
     -v, --version                    Show the Beet version number and quit.
+    -l, --list                       Show the various recipes known to Beet and quit.
     -h, --help                       Show this help message and quit.
 
 General Options:
@@ -64,7 +66,11 @@ Description:
   Beet is used to quickly generate applications.
 
 Example:
-    beet example_app --git --clean_files 
+    beet generate example_app --templates="rails/authlogic, rails/clean_files, rails/git"
+    
+    Same thing but shorter:
+
+    beet -g example_app -t=rails/authlogic,rails/clean_files,rails/git
 } 
   end
 end
