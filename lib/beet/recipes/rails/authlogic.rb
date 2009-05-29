@@ -3,7 +3,7 @@ file "app/models/user_session.rb" do
 class UserSession < Authlogic::Session::Base
   logout_on_timeout true # default is false
 end
-}
+}.strip
 end
 
 file "app/models/user.rb" do
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     c.logged_in_timeout = 10.minutes # default is 10.minutes
   end
 end
-}
+}.strip
 end
 
 file "app/controllers/user_sessions_controller.rb" do
@@ -42,7 +42,7 @@ class UserSessionsController < ApplicationController
     redirect_back_or_default new_user_session_url
   end
 end
-}
+}.strip
 end
 
 
@@ -62,7 +62,7 @@ file "app/views/user_sessions/new.html.erb" do
   <br />
   <%= f.submit "Login" %>
 <% end %>
-}
+}.strip
 end
 
 # Setup some routes
@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
       session[:return_to] = nil
     end
 end
-}
+}.strip
 end
 
 file "app/controllers/users_controller.rb" do
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
     end
   end
 end
-}
+}.strip
 end
 
 file "app/views/users/_form.html.erb" do
@@ -175,7 +175,7 @@ file "app/views/users/_form.html.erb" do
 <br />
 <%= form.label :password_confirmation %><br />
 <%= form.password_field :password_confirmation %><br />
-}
+}.strip
 end
 
 file "app/views/users/edit.html.erb" do
@@ -189,7 +189,7 @@ file "app/views/users/edit.html.erb" do
 <% end %>
  
 <br /><%= link_to "My Profile", account_path %>
-}
+}.strip
 end
 
 file "app/views/users/new.html.erb" do
@@ -201,7 +201,7 @@ file "app/views/users/new.html.erb" do
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Register" %>
 <% end %>
-}
+}.strip
 end
 
 file "app/views/users/show.html.erb" do
@@ -243,7 +243,7 @@ file "app/views/users/show.html.erb" do
  
  
 <%= link_to 'Edit', edit_account_path %>
-}
+}.strip
 end
 
 # can't rely on internal rails migration generation, so we do it this way
@@ -279,7 +279,7 @@ class BeetAuthlogicCreateUser < ActiveRecord::Migration
     drop_table :users
   end
 end
-}
+}.strip
 end
 
 gem 'authlogic'
