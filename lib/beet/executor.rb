@@ -16,7 +16,7 @@ module Beet
 
     def initialize(project_name, options) # :nodoc:
       @root = File.expand_path(File.join(Dir.pwd, project_name))
-      @project_name = project_name
+      @project_name = project_name == '.' ? File.basename(Dir.pwd) : project_name
       @logger = Beet::Logger.new
       @gems = []
       if options[:gems]
@@ -44,12 +44,16 @@ module Beet
     end
 
     def run_templates
-      @templates.each do |template|
-        begin
-          code = open(template).read
-          in_root { self.instance_eval(code) }
-        rescue LoadError, Errno::ENOENT => e
-          raise "The template [#{template}] could not be loaded. Error: #{e}"
+      if @templates.empty?
+        puts "No templates found."
+      else
+        @templates.each do |template|
+          begin
+            code = open(template).read
+            in_root { self.instance_eval(code) }
+          rescue LoadError, Errno::ENOENT => e
+            raise "The template [#{template}] could not be loaded. Error: #{e}"
+          end
         end
       end
     end
@@ -81,6 +85,7 @@ module Beet
         filename = File.join(location, "#{template}.rb")
         return filename if File.exists?(filename)
       end
+      nil
     end
   end
 end

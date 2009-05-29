@@ -10,6 +10,7 @@ class BeetRunner < Thor
   default_task :help
 
   map "-g" => :generate
+  map "-j" => :just_recipe
   map "-h" => :help
   map "-v" => :version
   map "-l" => :list
@@ -26,6 +27,13 @@ class BeetRunner < Thor
     else
       puts "type not recognized!"
     end
+  end
+
+  desc 'just_recipe', "when you just need a recipe"
+  method_options :templates => :optional, :gems => :optional
+  def just_recipe
+    executor = Beet::Executor.new('.', options)
+    executor.start
   end
 
   desc 'list', "list what recipes beet knows about"
