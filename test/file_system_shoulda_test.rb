@@ -14,12 +14,20 @@ class FileSystemShouldaTest < Test::Unit::TestCase
       end
     end
 
+    teardown do
+      File.unlink(@filename)
+    end
+
     should "add the given text after the specified text" do
       add_after @filename, "first line", "middle line" 
       assert_equal "first line\nmiddle line\nsecond line\n", File.read(@filename)
     end
 
     should "not add the given text if it already exists after the specified text" do
+      add_after @filename, "first line", "middle line" 
+      assert_equal "first line\nmiddle line\nsecond line\n", File.read(@filename)
+      add_after @filename, "first line", "middle line" 
+      assert_equal "first line\nmiddle line\nsecond line\n", File.read(@filename)
     end
   end
 end

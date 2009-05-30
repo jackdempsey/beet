@@ -89,7 +89,11 @@ module Beet
     #
     def gsub_file(relative_destination, regexp, *args, &block)
       path = destination_path(relative_destination)
-      content = File.read(path).gsub(regexp, *args, &block)
+      content = File.read(path)
+      check_for = args.first || yield('') # TODO use regexp and match against text in yield
+      return if content.include?(check_for) # if we already see the text in there, don't add it in again. TODO: handle 
+                                            # cases where same text is elsewhere in file, ie, make sure its #{match}\n#{check_for}
+      content = content.gsub(regexp, *args, &block)
       File.open(path, 'wb') { |file| file.write(content) }
     end
 
