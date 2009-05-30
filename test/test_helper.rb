@@ -5,6 +5,6 @@ require 'shoulda'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'beet'
-
+require 'ruby-debug'
 class Test::Unit::TestCase
 end
