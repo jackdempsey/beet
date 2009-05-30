@@ -111,8 +111,8 @@ module Beet
     #    add_after 'config/environment.rb', '# config.gem "aws-s3", :lib => "aws/s3"'
     #
     def add_after(filename, matching_text, data=nil, &block)
-      gsub_file 'config/routes.rb', /(#{Regexp.escape(matching_text)})/mi do |match|
-        "#{match}\n  #{data || block.call}\n"
+      gsub_file filename, /(#{Regexp.escape(matching_text)})/mi do |match|
+        "#{match}\n#{data || block.call}"
       end
     end
 
