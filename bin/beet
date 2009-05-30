@@ -31,8 +31,8 @@ class BeetRunner < Thor
 
   desc 'just_recipe', "when you just need a recipe"
   method_options :recipes => :optional, :gems => :optional
-  def just_recipe
-    executor = Beet::Executor.new('.', options)
+  def just_recipe(app_name='.')
+    executor = Beet::Executor.new(app_name, options)
     executor.start
   end
 

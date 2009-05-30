@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "lib/beet/interaction.rb",
      "lib/beet/logger.rb",
      "lib/beet/rails.rb",
+     "lib/beet/recipes/passenger/vhost.rb",
      "lib/beet/recipes/rails/authlogic.rb",
      "lib/beet/recipes/rails/clean_files.rb",
      "lib/beet/recipes/rails/db/mysql.rb",
