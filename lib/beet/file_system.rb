@@ -92,7 +92,7 @@ module Beet
       content = File.read(path)
       check_for = args.first || yield('')
       regex = Regexp.new(regexp.source + Regexp.escape(check_for))
-      return if content =~ regex
+      return if content =~ regex # if we can match the text and its leadin regex, don't add again
       content = content.gsub(regexp, *args, &block)
       File.open(path, 'wb') { |file| file.write(content) }
     end
