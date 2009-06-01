@@ -51,7 +51,7 @@
 #latest_version a {
 	font-size: 44px;
 	text-decoration:none;
-	color: #B76C29;
+	color: #906;
 }
 #content h2 {
   border-top: 1px solid #CCC;
@@ -67,7 +67,7 @@
 }
 #content h3 {
 	color: #545454;
-	margin-top: 40px;
+	margin-top: 20px;
 	border-top: 1px solid #CCC;
 	padding-top: 10px;
 	font-size: 22px;
