@@ -128,3 +128,74 @@
 	padding: 10px;
 	text-align: center;
 }
+body {
+	font-family: Georgia, Times, serif;
+	background: #FFF;
+	margin: 0px;
+	color: #333;
+}
+h1, h2, h3 { 
+	font-weight:normal;
+}
+h1 {
+	font-size:36px;
+}
+h2 {
+	margin: 10px 0px;
+	font-size: 22px;
+}
+a:link, a:visited {
+	color:#3C6A8F;
+	text-decoration: underline;
+}
+a:hover {
+	color:#333;
+	text-decoration: underline;
+}
+a img {
+	border:1px solid #E5E5E5;
+}
+#container {
+	width: 100%;
+}
+#header_holder {
+	text-align:center;
+	border-bottom: 1px solid #E5E5E5;
+}
+#header {
+	margin: 0px auto;
+	text-align:left;
+	position:relative;
+	background:#FFF;
+}
+#logo {
+	position: absolute;
+}
+#header h1 {
+	color:#797979;
+	padding: 0px;
+	margin: 0px 0px 10px 250px;
+}
+#header h1 a {
+	text-decoration: none;
+}
+#footer {
+	border-top: 1px solid #E5E5E5;
+	text-align:center;
+	padding: 10px;
+	font-size: 11px;
+	color: #444;
+}
+#main {
+	width: 986px;
+	position: relative;
+	margin: 30px auto;
+}
+#main h2 {
+	margin-top: 30px;
+}
+.clear {
+	font-size: 1px;
+	line-height: 0px;
+	clear:both;
+}
