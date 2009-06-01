@@ -14,6 +14,7 @@ class BeetRunner < Thor
   map "-h" => :help
   map "-v" => :version
   map "-l" => :list
+  map "--list" => :list
 
   desc 'generate [app_name]', "the main app generate method"
   method_options :recipes => :optional, :gems => :optional
