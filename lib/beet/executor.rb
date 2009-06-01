@@ -14,8 +14,12 @@ module Beet
     attr_reader :root, :logger
     attr_accessor :recipes, :project_name, :gems
 
-    def initialize(project_name, options) # :nodoc:
-      @root = File.expand_path(File.join(Dir.pwd, project_name))
+    def initialize(project_name, options={}) # :nodoc:
+      @root = if File.exists?(root = File.join(Dir.pwd, project_name))
+                root
+              else
+                Dir.pwd
+              end
       @project_name = project_name == '.' ? File.basename(Dir.pwd) : project_name
       @logger = Beet::Logger.new
       @gems = []
