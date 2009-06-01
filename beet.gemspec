@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{beet}
-  s.version = "0.0.9"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
-  s.date = %q{2009-05-30}
+  s.date = %q{2009-06-01}
   s.default_executable = %q{beet}
   s.email = %q{jack.dempsey@gmail.com}
   s.executables = ["beet"]
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
      "lib/beet/logger.rb",
      "lib/beet/rails.rb",
      "lib/beet/recipes/passenger/vhost.rb",
+     "lib/beet/recipes/rack/middleware.rb",
      "lib/beet/recipes/rails/authlogic.rb",
      "lib/beet/recipes/rails/clean_files.rb",
      "lib/beet/recipes/rails/db/mysql.rb",
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
      "lib/beet/scm.rb",
      "lib/beet/scm/git.rb",
      "lib/beet/scm/svn.rb",
+     "test/executor_test.rb",
      "test/file_system_shoulda_test.rb",
      "test/test_helper.rb"
   ]
@@ -51,7 +53,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.3}
   s.summary = %q{A gem to help with easily generating projects}
   s.test_files = [
-    "test/file_system_shoulda_test.rb",
+    "test/executor_test.rb",
+     "test/file_system_shoulda_test.rb",
      "test/test_helper.rb"
   ]
 
