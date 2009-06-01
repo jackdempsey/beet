@@ -17,6 +17,8 @@ module Beet
     def initialize(project_name, options={}) # :nodoc:
       @root = if File.exists?(root = File.join(Dir.pwd, project_name))
                 root
+              elsif project_name.include?('/')
+                File.dirname(project_name)
               else
                 Dir.pwd
               end
