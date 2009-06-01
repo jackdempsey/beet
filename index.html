@@ -17,7 +17,7 @@
     </div>
     <div id="main">
         
-        <div id="latest_version"><a href="#installing">0.0.9</a></div>
+        <div id="latest_version"><a href="#installing">0.1.0</a></div>
         
         <ul id="pagenav">
           <li><a href="#what">What</a></li>
@@ -51,6 +51,9 @@
         <div class='highlight'><pre>beet -g new_app -r="http://path/to/recipe.rb"</pre></div>
         <p>You can also pass a url to the template.</p>
 
+        <div class='highlight'><pre>beet -l</pre></div>
+        <p>You can see a list of current recipes by passing in '-l'.</p>
+
         <div class='highlight'><pre>beet just_recipe [app_name] -r=rails/db/mysql</pre></div>
         <p>You can also call just_recipe (aliased to -j as well) to just run a recipe without generating a new app. Pass in the directory to the
         app, or assume the current directory.</p>
@@ -61,6 +64,8 @@
         <p>There's a recipes repository living at 
         <a href='http://github.com/jackdempsey/beet-recipes/tree/master'>http://github.com/jackdempsey/beet-recipes</a> 
         for easy forking and contributing of future recipes.</p>
+
+        <p>You can also set an environment variable, BEET_RECIPES_DIR, if you'd like beet to look in other directories on your system for recipes.</p>
 
         <h3 id="dependencies">Dependencies</h3>
         <ul>
