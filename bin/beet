@@ -7,8 +7,6 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'beet'
  
 class BeetRunner < Thor
-  default_task :help
-
   map "-g" => :generate
   map "-j" => :just_recipe
   map "-h" => :help
