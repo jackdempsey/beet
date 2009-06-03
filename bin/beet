@@ -15,12 +15,16 @@ class BeetRunner < Thor
   map "--list" => :list
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options :recipes => :optional, :gems => :optional
+  method_options :recipes => :optional, :gems => :optional, :template => :optional
   def generate(app_name, type=:rails)
     case type
     when :rails
       puts "Generating rails project #{app_name}..."
-      system("rails #{app_name}")
+      if options[:template]
+        system("rails #{app_name} -m #{::TEMPLATE_LOCATIONS[options[:template]]}")
+      else
+        system("rails #{app_name}")
+      end
       executor = Beet::Executor.new(app_name, options)
       executor.start
     else

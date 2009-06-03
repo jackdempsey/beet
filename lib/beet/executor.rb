@@ -50,16 +50,12 @@ module Beet
     end
 
     def run_recipes
-      if @recipes.empty?
-        puts "No recipes found."
-      else
-        @recipes.each do |recipe|
-          begin
-            code = open(recipe).read
-            in_root { self.instance_eval(code) }
-          rescue LoadError, Errno::ENOENT => e
-            raise "The recipe [#{recipe}] could not be loaded. Error: #{e}"
-          end
+      @recipes.each do |recipe|
+        begin
+          code = open(recipe).read
+          in_root { self.instance_eval(code) }
+        rescue LoadError, Errno::ENOENT => e
+          raise "The recipe [#{recipe}] could not be loaded. Error: #{e}"
         end
       end
     end
