@@ -2,6 +2,7 @@ require 'open-uri'
 require 'beet/logger'
 module Beet
   class Executor
+    CONFIG_FILE = "~/.beet.yml"
     include Beet::Execution
     include Beet::FileSystem
     include Beet::Interaction
@@ -11,7 +12,7 @@ module Beet
     include Beet::Capistrano
     include Beet::SCM
 
-    attr_reader :root, :logger
+    attr_reader :root, :logger, :options, :template
     attr_accessor :recipes, :project_name, :gems
 
     def initialize(project_name, options={}) # :nodoc:
@@ -25,6 +26,8 @@ module Beet
       @project_name = project_name == '.' ? File.basename(Dir.pwd) : project_name
       @logger = Beet::Logger.new
       @gems = []
+      @template = options[:template]
+      @options = options
       if options[:gems]
         options[:gems].split(/[\s,]+/).each do |gem|
           if location = gem_location(gem)
@@ -47,6 +50,9 @@ module Beet
     def start
       run_recipes
       add_gems
+      if @options[:save]
+        save_run
+      end
     end
 
     def run_recipes
@@ -73,6 +79,25 @@ module Beet
     end
 
     private
+
+    def save_run
+      require 'yaml'
+      name = if options[:save] == true
+               ask("Enter a name for this configuration: ")
+             else
+               options[:save]
+             end
+      filename = File.expand_path(CONFIG_FILE)
+      if File.exists?(filename)
+        data = YAML.load_file(filename)
+      else
+        data = {}
+      end
+      data[name] = {:gems => @gems, :recipes => @recipes, :template => @template}
+      File.open(File.expand_path("~/.beet.yml"), "wb") do |f|
+        f.write(YAML::dump(data))
+      end
+    end
 
     def gem_location(gem_name)
       GEM_LOCATIONS[gem_name]
