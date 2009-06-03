@@ -21,7 +21,7 @@ class BeetRunner < Thor
     when :rails
       puts "Generating rails project #{app_name}..."
       if options[:template]
-        system("rails #{app_name} -m #{::TEMPLATE_LOCATIONS[options[:template]]}")
+        system("rails #{app_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
       else
         system("rails #{app_name}")
       end
