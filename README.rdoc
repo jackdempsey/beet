@@ -1,18 +1,8 @@
 = beet
 
-Beet is a simple project/app generator, with its roots and underlying infrastructure heavily influenced from Rails Templates.
+Beet is a simple project generator, with its roots and underlying infrastructure heavily influenced from Rails Templates.
 
-Currently Beet will focus on Rails recipes, but there's no reason not to extend it to build out any sort of project. 
-The goal is to have a variety of core level methods to allow for building of higher level concepts that make sense in whatever
-your project needs. 
-
-Eventually I would love to see recipes for sinatra, merb, iPhone apps, etc. The sky is the limit.
-
-== Existing Recipes
-
-Beet should be compatible with existing rails templates. For instance, to use the daring.rb template, you can run:
-
-beet generate new_daring_project --recipes http://github.com/jeremymcanally/rails-templates/raw/10f5bc25e4067968dcf3e950a95538dcbc1f79ed/daring.rb
+Please visit the homepage to learn more: http://jackdempsey.github.com/beet
 
 == Copyright
 
