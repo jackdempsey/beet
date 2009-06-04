@@ -39,24 +39,35 @@
         With Beet, you can easily create a rails project and pick a variety of small recipes to run, letting you create different types
         of projects with each new command.</p>
 
-        <h3 id="usage">Usage</h3>
+        <p>Currently most of the Beet's features support building Rails apps, but the eventual plan is to have other types of projects and recipes.</p>
 
-        <div class='highlight'><pre>beet generate new_app --recipes="rails/jquery, rails/authlogic, rails/git"</pre></div>
-        <p>This will create a new rails app for you, download jquery (and remove prototype), setup everything AuthLogic needs, and 
-        put the project into git.</p>
+        <div class='usage'>
+          <h3 id="usage">Usage</h3>
 
-        <div class='highlight'><pre>beet -g new_app -r="rails/jquery, rails/authlogic, rails/git"</pre></div>
-        <p>This will do the same. Beet is built on Thor, and makes use of its excellent option parsing abilities.</p>
+          <div class='highlight'><pre>beet generate new_app --recipes="rails/jquery, rails/authlogic, rails/git"</pre></div>
+          <p>This will create a new rails app for you, download jquery, setup everything AuthLogic needs, and 
+          put the project into git.</p>
 
-        <div class='highlight'><pre>beet -g new_app -r="http://path/to/recipe.rb"</pre></div>
-        <p>You can also pass a url to the template.</p>
+          <div class='highlight'><pre>beet -g new_app -r="rails/jquery, rails/authlogic, rails/git"</pre></div>
+          <p>This will do the same. Beet is built on Thor, and makes use of its excellent option parsing abilities.</p>
 
-        <div class='highlight'><pre>beet --list</pre></div>
-        <p>You can see a list of current recipes by passing in '--list' or '-l'.</p>
+          <div class='highlight'><pre>beet -g new_app -r="http://path/to/recipe.rb"</pre></div>
+          <p>You can also pass a url to the template.</p>
 
-        <div class='highlight'><pre>beet just_recipe [app_name] -r=rails/db/mysql</pre></div>
-        <p>You can also call just_recipe (aliased to -j as well) to just run a recipe without generating a new app. Pass in the directory to the
-        app, or assume the current directory.</p>
+          <div class='highlight'><pre>beet --list</pre></div>
+          <p>You can see a list of current recipes by passing in '--list' or '-l'.</p>
+
+          <div class='highlight'><pre>beet just_recipe [app_name] -r=rails/db/mysql</pre></div>
+          <p>You can also call just_recipe (aliased to -j as well) to just run a recipe without generating a new app. Pass in the directory to the
+          app, or assume the current directory.</p>
+
+          <div class='highlight'><pre>beet -g complex -r "rails/jquery, rails/db/mysql, rails/git" --save jquery_mysql_git</pre></div>
+          <p>Tired of typing out these commands each time? Beet provides a -s/--save feature to make the common configurations you use that
+          much easier to reuse. Pass in a name to --save or Beet will prompt you later.</p>
+
+          <div class='highlight'><pre>beet -g complex_part_deux --use jquery_mysql_git</pre></div>
+          <p>Once you've saved a configuration, you can reuse it with the -u/--use option and its name.</p>
+        </div>
 
         <h4>There's More</h4>
         <p>So far we've just been generating Rails apps, which is useful, but only one side of Beet. There's no reason you can't use Beet to generate

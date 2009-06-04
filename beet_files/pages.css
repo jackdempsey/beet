@@ -199,3 +199,7 @@ a img {
 	line-height: 0px;
 	clear:both;
 }
+.usage p {
+  padding-bottom: 3px;
+  margin-top: 5px;
+}

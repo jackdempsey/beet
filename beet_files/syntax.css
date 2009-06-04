@@ -1,7 +1,7 @@
 .highlight {
 	line-height: 80%;
 	border-top: 1px solid #CCC;
-	border-bottom: 1px solid #CCC;
+/*	border-bottom: 1px solid #CCC; */
 }
 .highlight br {
   height: 0px;
