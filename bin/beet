@@ -16,26 +16,15 @@ class BeetRunner < Thor
 
   desc 'generate [app_name]', "the main app generate method"
   method_options :recipes => :optional, :gems => :optional, :template => :optional, :save => :optional, :use => :optional
-  def generate(app_name, type=:rails)
-    case type
-    when :rails
-      puts "Generating rails project #{app_name}..."
-      if options[:template]
-        system("rails #{app_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
-      else
-        system("rails #{app_name}")
-      end
-      executor = Beet::Executor.new(app_name, options)
-      executor.start
-    else
-      puts "type not recognized!"
-    end
+  def generate(app_name, project_type=:rails)
+    executor = Beet::Executor.new(app_name, options.merge('project_type' => project_type))
+    executor.start
   end
 
   desc 'just_recipe', "when you just need a recipe"
   method_options :recipes => :optional, :gems => :optional, :save => :optional, :use => :optional
   def just_recipe(app_name='.')
-    executor = Beet::Executor.new(app_name, options)
+    executor = Beet::Executor.new(app_name, options.merge('generate' => false))
     executor.start
   end
 

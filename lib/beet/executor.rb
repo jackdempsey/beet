@@ -22,12 +22,37 @@ module Beet
       @template = options[:template]
       @options = options
       @recipes = []
+      @project_type = options[:project_type]
+      @generate = true unless options[:generate] == false
       extract_commands_from_options
     end
 
     def start
+      if @options[:use]
+        puts "Loading saved configuration: #{@options[:use]}"
+        data = load_saved_recipe_file
+        if config = data[@options[:use]]
+          @gems.concat(config[:gems]) if config[:gems]
+          @template = config[:template] if config[:template]
+          @recipes.concat(config[:recipes]) if config[:recipes]
+        end
+      end
+
+      case @project_type
+      when :rails
+        if @generate
+          puts "Generating rails project #{project_name}..."
+          if @options[:template]
+            system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
+          else
+            system("rails #{project_name}")
+          end
+        end
+      end
+
       run_recipes
       add_gems
+
       if @options[:save]
         save_run
       end
