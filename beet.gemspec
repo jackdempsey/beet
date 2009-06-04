@@ -47,7 +47,7 @@ Gem::Specification.new do |s|
      "lib/beet/scm/svn.rb",
      "lib/beet/template_location_map.rb",
      "test/executor_test.rb",
-     "test/file_system_shoulda_test.rb",
+     "test/file_system_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/jackdempsey/beet}
@@ -57,7 +57,7 @@ Gem::Specification.new do |s|
   s.summary = %q{A gem to help with easily generating projects}
   s.test_files = [
     "test/executor_test.rb",
-     "test/file_system_shoulda_test.rb",
+     "test/file_system_test.rb",
      "test/test_helper.rb"
   ]
 
