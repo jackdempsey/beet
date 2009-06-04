@@ -4,7 +4,7 @@ include Beet::FileSystem
 
 # define some methods that file_system recipes expect to exist
 def root; '.'; end
-class FileSystemShouldaTest < Test::Unit::TestCase
+class FileSystemTest < Test::Unit::TestCase
   context "#add_after" do
     setup do
       @filename = 'test.file'
