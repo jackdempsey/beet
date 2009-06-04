@@ -2,12 +2,11 @@ require 'open-uri'
 require 'beet/logger'
 module Beet
   class Executor
-    CONFIG_FILE = "~/.beet.yml"
+    BEET_DATA_FILE = "~/.beet.yml"
     include Beet::Execution
     include Beet::FileSystem
     include Beet::Interaction
 
-    # TODO create a better way to mixin things from rails/whatever as needed
     include Beet::Rails
     include Beet::Capistrano
     include Beet::SCM
@@ -16,35 +15,14 @@ module Beet
     attr_accessor :recipes, :project_name, :gems
 
     def initialize(project_name, options={}) # :nodoc:
-      @root = if File.exists?(root = File.join(Dir.pwd, project_name))
-                root
-              elsif project_name.include?('/')
-                File.dirname(project_name)
-              else
-                Dir.pwd
-              end
+      @root = calculate_project_root(project_name)
       @project_name = project_name == '.' ? File.basename(Dir.pwd) : project_name
       @logger = Beet::Logger.new
       @gems = []
       @template = options[:template]
       @options = options
-      if options[:gems]
-        options[:gems].split(/[\s,]+/).each do |gem|
-          if location = gem_location(gem)
-            @gems << {:name => gem, :source => location}
-          else
-            puts "gem: #{gem} not found. Did you spell it correctly? If so, submit a patch with its location!"
-          end
-        end
-      end
       @recipes = []
-      if options[:recipes]
-        options[:recipes].split(/[\s,]+/).each do |recipe|
-          if file = recipe_location(recipe)
-            @recipes << file
-          end
-        end
-      end
+      extract_commands_from_options
     end
 
     def start
@@ -66,6 +44,22 @@ module Beet
       end
     end
 
+    def log(*args)
+      logger.log(*args)
+    end
+
+    private
+
+    def calculate_project_root(project_name)
+      if File.exists?(root = File.join(Dir.pwd, project_name))
+        root
+      elsif project_name.include?('/')
+        File.dirname(project_name)
+      else
+        Dir.pwd
+      end
+    end
+
     def add_gems
       if @gems
         @gems.each do |gem_data|
@@ -74,11 +68,24 @@ module Beet
       end
     end
 
-    def log(*args)
-      logger.log(*args)
+    def extract_commands_from_options
+      if @options[:gems]
+        @options[:gems].split(/[\s,]+/).each do |gem|
+          if location = gem_location(gem)
+            @gems << {:name => gem, :source => location}
+          else
+            puts "gem: #{gem} not found. Did you spell it correctly? If so, submit a patch with its location!"
+          end
+        end
+      end
+      if @options[:recipes]
+        @options[:recipes].split(/[\s,]+/).each do |recipe|
+          if file = recipe_location(recipe)
+            @recipes << file
+          end
+        end
+      end
     end
-
-    private
 
     def save_run
       require 'yaml'
@@ -87,14 +94,25 @@ module Beet
              else
                options[:save]
              end
-      filename = File.expand_path(CONFIG_FILE)
-      if File.exists?(filename)
-        data = YAML.load_file(filename)
-      else
-        data = {}
-      end
+      data = load_saved_recipe_file
       data[name] = {:gems => @gems, :recipes => @recipes, :template => @template}
-      File.open(File.expand_path("~/.beet.yml"), "wb") do |f|
+      write_saved_recipe_file(data)
+    end
+
+    def beet_data_file
+      File.expand_path(BEET_DATA_FILE)
+    end
+
+    def load_saved_recipe_file
+      if File.exists?(beet_data_file)
+        YAML.load_file(beet_data_file)
+      else
+        {}
+      end
+    end
+
+    def write_saved_recipe_file(data)
+      File.open(beet_data_file, "wb") do |f|
         f.write(YAML::dump(data))
       end
     end
