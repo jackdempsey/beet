@@ -1,2 +1,6 @@
 * refactor methods in bin/beet to use each other (lots of duplication between generate and just_recipe
 * refactor so you can use template names in the recipe calls along with local paths and remote paths
+
+* fixup places where its obviously just rails stuff, like add_gems
+* generate command in bin/beet should have executor stuff pulled out of case, ie, it should always run
+* create a better way to mixin things from rails/whatever as needed inside Beet::Executor
