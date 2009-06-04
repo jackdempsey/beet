@@ -15,7 +15,7 @@ class BeetRunner < Thor
   map "--list" => :list
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options :recipes => :optional, :gems => :optional, :template => :optional, :save => :optional
+  method_options :recipes => :optional, :gems => :optional, :template => :optional, :save => :optional, :use => :optional
   def generate(app_name, type=:rails)
     case type
     when :rails
@@ -33,7 +33,7 @@ class BeetRunner < Thor
   end
 
   desc 'just_recipe', "when you just need a recipe"
-  method_options :recipes => :optional, :gems => :optional, :save => :optional
+  method_options :recipes => :optional, :gems => :optional, :save => :optional, :use => :optional
   def just_recipe(app_name='.')
     executor = Beet::Executor.new(app_name, options)
     executor.start
