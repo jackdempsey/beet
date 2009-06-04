@@ -76,12 +76,15 @@ module Beet
     private
 
     def calculate_project_root(project_name)
-      if File.exists?(root = File.join(Dir.pwd, project_name))
-        root
-      elsif project_name.include?('/')
-        File.dirname(project_name)
-      else
+      # if the name looks like ~/projects/foobar then thats the root
+      if project_name.include?('/')
+        project_name
+      # if we're running inside the app, then current dir is it
+      elsif File.basename(Dir.pwd) == project_name
         Dir.pwd
+      # assume the root is ./project_name
+      else
+        File.join(Dir.pwd, project_name)
       end
     end
 
