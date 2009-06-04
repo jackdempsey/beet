@@ -4,3 +4,8 @@
 * fixup places where its obviously just rails stuff, like add_gems
 * generate command in bin/beet should have executor stuff pulled out of case, ie, it should always run
 * create a better way to mixin things from rails/whatever as needed inside Beet::Executor
+
+* figure out if its worth it to use similar step definitions as done in Jeweler for gems that generate stuff
+and want to verify things worked correctly
+
+* write some recipes for browsercms
