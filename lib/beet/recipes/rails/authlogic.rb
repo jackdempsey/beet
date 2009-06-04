@@ -282,7 +282,7 @@ end
 }.strip
 end
 
-gem 'authlogic'
+gem 'authlogic', :version => '~> 2.0.0'
 
 rake "gems:install", :sudo => true
 rake "db:create:all" 
