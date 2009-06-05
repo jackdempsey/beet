@@ -12,7 +12,7 @@ module Beet
     include Beet::SCM
 
     attr_reader :root, :logger, :options, :template
-    attr_accessor :recipes, :project_name, :gems
+    attr_accessor :recipes, :project_name, :gems, :todo_items
 
     def initialize(project_name, options={}) # :nodoc:
       @root = calculate_project_root(project_name)
@@ -21,6 +21,7 @@ module Beet
       @gems = []
       @template = options[:template]
       @options = options
+      @todo_items = ''
       @recipes = []
       @project_type = options[:project_type]
       @generate = true unless options[:generate] == false
@@ -51,7 +52,10 @@ module Beet
       end
 
       run_recipes
+
       add_gems
+
+      print_todo
 
       if @options[:save]
         save_run
@@ -73,7 +77,18 @@ module Beet
       logger.log(*args)
     end
 
+    def todo(string=nil, &block)
+      self.todo_items << (string || block.call)
+    end
+
     private
+
+    def print_todo
+      puts '#' x 30
+      puts "TODO Items:"
+      puts todo_items
+      puts '#' x 30
+    end
 
     def calculate_project_root(project_name)
       # if the name looks like ~/projects/foobar then thats the root
