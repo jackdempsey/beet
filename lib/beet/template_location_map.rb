@@ -1,5 +1,6 @@
 TEMPLATE_LOCATIONS = {
   'browsercms'        => 'http://github.com/browsermedia/browsercms/raw/master/templates/blank.rb',
+  'browsercms_demo'   => 'http://github.com/browsermedia/browsercms/raw/master/templates/demo.rb',
   'bort'              => 'http://github.com/jeremymcanally/rails-templates/raw/master/bort.rb',
   'daring'            => 'http://github.com/jeremymcanally/rails-templates/raw/master/daring.rb',
   'datamapper'        => 'http://github.com/jeremymcanally/rails-templates/raw/master/datamapper.rb',

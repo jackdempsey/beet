@@ -28,7 +28,7 @@ class BeetRunner < Thor
     executor.start
   end
 
-  desc 'list', "list what recipes beet knows about"
+  desc 'list', "list what recipes and templates beet knows about"
   def list
     paths = [] 
     paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
@@ -36,7 +36,10 @@ class BeetRunner < Thor
     recipes = paths.map do |path|
       Dir.glob(path)
     end.flatten.compact
+    puts "Recipes: "
     pp recipes
+    puts "Templates: "
+    pp TEMPLATE_LOCATIONS.values.sort
   end
 
   desc 'version', "the current version of beet"
