@@ -9,6 +9,9 @@ end
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'beet'
  
+WIN32 = (RUBY_PLATFORM =~ /win32|mingw|bccwin|cygwin/) rescue nil
+SUDO = (WIN32 || ENV['SUDOLESS']) ? '': 'sudo '
+
 class BeetRunner < Thor
   map "-g" => :generate
   map "-j" => :just_recipe

@@ -22,7 +22,8 @@ module Beet
     #   end
     #
     def sudo(command, log_action = true)
-      command = "sudo #{command}"
+      command = "#{SUDO}#{command}"
+
       log 'executing',  "#{command} from #{Dir.pwd}" if log_action
       `#{command}`
     end
