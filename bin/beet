@@ -2,7 +2,10 @@
  
 require 'rubygems'
 require 'thor'
-require 'ruby-debug'
+begin
+  require 'ruby-debug'
+rescue LoadError
+end
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'beet'
  
