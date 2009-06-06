@@ -15,6 +15,7 @@ class BeetRunner < Thor
   map "-h" => :help
   map "-v" => :version
   map "-l" => :list
+  map "-d" => :display
   map "--list" => :list
 
   desc 'generate [app_name]', "the main app generate method"
@@ -45,6 +46,13 @@ class BeetRunner < Thor
     pp TEMPLATE_LOCATIONS.sort.map {|array| array[0] + " => " + array[1]}
   end
 
+  desc 'display', "Display the code for the recipes/templates"
+  method_options :recipes => :optional, :template => :optional
+  def display(app_name='.')
+    executor = Beet::Executor.new(app_name,options.merge('generate' => false, 'display' => true))
+    executor.start
+  end
+
   desc 'version', "the current version of beet"
   def version
     version_file = File.dirname(__FILE__) + '/../VERSION'
@@ -61,6 +69,7 @@ Usage: #{$0} /path/to/your/app [options]
 Options:
     -g, --generate                   Run the generate command to build a project
     -j, --just_recipe                Run the just_recipe command to only run specified recipes, templates, etc.
+    -d, --display                    Instead of running, show the template or recipe body
 
 Beet Info:
     -v, --version                    Show the Beet version number and quit.

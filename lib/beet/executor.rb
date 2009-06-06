@@ -25,6 +25,7 @@ module Beet
       @recipes = []
       @project_type = options[:project_type]
       @generate = true unless options[:generate] == false
+      @display = options[:display]
       extract_commands_from_options
     end
 
@@ -39,34 +40,43 @@ module Beet
         end
       end
 
-      case @project_type
-      when :rails
-        if @generate
-          puts "Generating rails project #{project_name}..."
-          if @options[:template]
-            system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
-          else
-            system("rails #{project_name}")
+      if @display
+        puts open(TEMPLATE_LOCATIONS[options[:template]]).read
+      else
+        case @project_type
+        when :rails
+          if @generate
+            puts "Generating rails project #{project_name}..."
+            if @options[:template]
+              system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
+            else
+              system("rails #{project_name}")
+            end
           end
+        end
+
+        add_gems
+
+        print_todo
+
+        if @options[:save]
+          save_run
         end
       end
 
       run_recipes
 
-      add_gems
-
-      print_todo
-
-      if @options[:save]
-        save_run
-      end
     end
 
     def run_recipes
       @recipes.each do |recipe|
         begin
           code = open(recipe).read
-          in_root { self.instance_eval(code) }
+          if @display
+            puts code
+          else
+            in_root { self.instance_eval(code) }
+          end
         rescue LoadError, Errno::ENOENT => e
           raise "The recipe [#{recipe}] could not be loaded. Error: #{e}"
         end
