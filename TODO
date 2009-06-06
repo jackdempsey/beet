@@ -1,4 +1,5 @@
 * refactor methods in bin/beet to use each other (lots of duplication between generate and just_recipe
+  ( maybe just make generate a boolean option rather than a method )
 * refactor so you can use template names in the recipe calls along with local paths and remote paths
 
 * fixup places where its obviously just rails stuff, like add_gems
