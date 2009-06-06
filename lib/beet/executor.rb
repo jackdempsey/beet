@@ -94,10 +94,12 @@ module Beet
     private
 
     def print_todo
-      puts '#' * 30
-      puts "TODO Items:"
-      puts todo_items
-      puts '#' * 30
+      unless todo_items.empty?
+        puts '#' * 30
+        puts "TODO Items:"
+        puts todo_items
+        puts '#' * 30
+      end
     end
 
     def calculate_project_root(project_name)
