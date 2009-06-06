@@ -14,4 +14,4 @@ end
 default_to = "/etc/apache2/passenger_pane_vhosts"
 answer = ask "Write file to: [#{default_to} default]"
 filename = answer.empty? ? default_to : answer
-run "sudo mv ./#{project_name}.local.vhost.conf #{filename}"
+sudo "mv ./#{project_name}.local.vhost.conf #{filename}"

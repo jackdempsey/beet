@@ -13,6 +13,20 @@ module Beet
       `#{command}`
     end
 
+    # Executes a command with sudo
+    #
+    # ==== Example
+    #
+    #   inside('vendor') do
+    #     sudo('mkdir /var/log/something')
+    #   end
+    #
+    def sudo(command, log_action = true)
+      command = "sudo #{command}"
+      log 'executing',  "#{command} from #{Dir.pwd}" if log_action
+      `#{command}`
+    end
+
     # Executes a ruby script (taking into account WIN32 platform quirks)
     def run_ruby_script(command, log_action = true)
       ruby_command = RUBY_PLATFORM=~ /win32/ ? 'ruby ' : ''
