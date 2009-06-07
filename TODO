@@ -13,3 +13,4 @@ and want to verify things worked correctly
 
 * work on ubuntu install ideas
 
+* create a "if gem_exists?('browsercms')" type method
