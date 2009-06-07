@@ -1,13 +1,9 @@
-bcms_blog_code = ask "enter the path to the top level directory holding the bcms_blog module code [downloads by default]"
-
-if bcms_blog_location.empty?
-  git "clone git://github.com/browsermedia/browsercms_blog_module.git"
-  bcms_blog_code = Dir.pwd
+# Run this inside or outside your bcms_blog directory, otherwise download the code
+git "clone git://github.com/browsermedia/bcms_blog.git" unless File.exists?('./bcms_blog') || File.basename(Dir.pwd) == 'bcms_blog'
+FileUtils.chdir 'bcms_blog' do
+  system "gem build *.gemspec"
+  sudo "gem install bcms_blog*.gem"
 end
-
-inside bcms_blog_code do
-  system "gem build bcms_blog.gemspec"
-  sudo "gem install bcsm_blog*.gem"
-  FileUtils.rm(Dir.glob('*.gem'))
+if yes? "Should I delete bcms_blog/"
+  FileUtils.rm_rf('bcms_blog')
 end
-
