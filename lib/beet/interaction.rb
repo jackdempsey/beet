@@ -8,7 +8,8 @@ module Beet
     #   freeze! if ask("Should I freeze the latest Rails?") == "yes"
     #
     def ask(string)
-      log '', string
+      log '', string 
+      print '> '
       STDIN.gets.strip
     end
 
