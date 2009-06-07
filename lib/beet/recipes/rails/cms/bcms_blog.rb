@@ -17,5 +17,5 @@ add_after 'config/environment.rb', "config.gem 'browsercms'" do
 end
 
 add_before 'config/routes.rb', 'map.routes_for_browser_cms' do
-  'map.routes_for_bcms_news'
+  "map.routes_for_bcms_blog"
 end
