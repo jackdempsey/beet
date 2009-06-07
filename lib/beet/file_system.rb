@@ -88,7 +88,8 @@ module Beet
     #   gsub_file 'app/controllers/application_controller.rb', /#\s*(filter_parameter_logging :password)/, '\1'
     #
     def gsub_file(relative_destination, regexp, *args, &block)
-      path = destination_path(relative_destination)
+      #path = destination_path(relative_destination)
+      path = relative_destination
       content = File.read(path)
       check_for = args.first || yield('')
       regex = Regexp.new(regexp.source + Regexp.escape(check_for))
@@ -115,7 +116,7 @@ module Beet
     #    add_after 'config/environment.rb', '# config.gem "aws-s3", :lib => "aws/s3"'
     #
     def add_after(filename, matching_text, data=nil, &block)
-      gsub_file filename, /(#{Regexp.escape(matching_text)})/mi do |match|
+      gsub_file filename, /(\s*#{Regexp.escape(matching_text)})/mi do |match|
         "#{match}\n#{data || block.call}"
       end
     end
