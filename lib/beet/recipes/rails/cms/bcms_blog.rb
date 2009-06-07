@@ -13,7 +13,7 @@ end
 
 # add to project
 add_after 'config/environment.rb', "config.gem 'browsercms'" do
-  "config.gem 'bcms_blog'"
+  "\tconfig.gem 'bcms_blog'"
 end
 
 add_before 'config/routes.rb', 'map.routes_for_browser_cms' do
