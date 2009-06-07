@@ -40,7 +40,7 @@ module Beet
         end
       end
 
-      if @display
+      if @display && options[:template]
         puts open(TEMPLATE_LOCATIONS[options[:template]]).read
       else
         case @project_type
