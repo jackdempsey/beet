@@ -120,6 +120,18 @@ module Beet
       end
     end
 
+    # Add text before matching line
+    #
+    # ==== Example
+    #
+    #    add_before 'config/environment.rb', '# config.gem "aws-s3", :lib => "aws/s3"'
+    #
+    def add_before(filename, matching_text, data=nil, &block)
+      gsub_file filename, /(#{Regexp.escape(matching_text)})/mi do |match|
+        "#{data || block.call}\n#{match}"
+      end
+    end
+
     protected
 
     def destination_path(relative_destination)
