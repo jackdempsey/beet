@@ -40,15 +40,15 @@ module Beet
         end
       end
 
-      if @display && options[:template]
-        puts open(TEMPLATE_LOCATIONS[options[:template]]).read
+      if @display && @template
+        puts open(TEMPLATE_LOCATIONS[@template]).read
       else
         case @project_type
         when :rails
           if @generate
             puts "Generating rails project #{project_name}..."
-            if @options[:template]
-              system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[options[:template]]}")
+            if @template
+              system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
             else
               system("rails #{project_name}")
             end
