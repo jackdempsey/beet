@@ -137,6 +137,8 @@ module Beet
         @options[:recipes].split(/[\s,]+/).each do |recipe|
           if file = recipe_location(recipe)
             @recipes << file
+          else
+            puts "Can't find recipe #{recipe}"
           end
         end
       end

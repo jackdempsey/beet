@@ -15,4 +15,3 @@ and want to verify things worked correctly
 
 * create a "if gem_exists?('browsercms')" type method
 
-* print out a warning message if a recipe isn't found
