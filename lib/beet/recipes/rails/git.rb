@@ -7,12 +7,11 @@ run("find . \\( -type d -empty \\) -and \\( -not -regex ./\\.git.* \\) -exec tou
 git :init
 
 file '.gitignore', <<-CODE
-log/\\*.log
-log/\\*.pid
-db/\\*.db
-db/\\*.sqlite3
+log/*.*
+db/*.db
+db/*.sqlite3
 db/schema.rb
-tmp/\\*\\*/\\*
+tmp/*.*
 .DS_Store
 doc/api
 doc/app
