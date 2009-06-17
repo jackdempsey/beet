@@ -10,7 +10,7 @@ module Beet
     #
     def run(command, log_action = true)
       log 'executing',  "#{command} from #{Dir.pwd}" if log_action
-      `#{command}`
+      system(command)
     end
 
     # Executes a command with sudo
@@ -23,9 +23,7 @@ module Beet
     #
     def sudo(command, log_action = true)
       command = "#{SUDO}#{command}"
-
-      log 'executing',  "#{command} from #{Dir.pwd}" if log_action
-      `#{command}`
+      run(command,log_action)
     end
 
     # Executes a ruby script (taking into account WIN32 platform quirks)
