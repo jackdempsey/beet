@@ -20,4 +20,5 @@ add_before 'config/routes.rb', 'map.routes_for_browser_cms' do
   "\tmap.routes_for_bcms_event\n"
 end
 
-run "rake db:migrate"
+generate "browser_cms"
+rake "db:migrate"
