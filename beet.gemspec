@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{beet}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
-  s.date = %q{2009-06-08}
+  s.date = %q{2009-06-17}
   s.default_executable = %q{beet}
   s.email = %q{jack.dempsey@gmail.com}
   s.executables = ["beet"]
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
      "lib/beet/recipes/rails/authlogic.rb",
      "lib/beet/recipes/rails/clean_files.rb",
      "lib/beet/recipes/rails/cms/bcms_blog.rb",
+     "lib/beet/recipes/rails/cms/bcms_event.rb",
      "lib/beet/recipes/rails/css/blueprint.rb",
      "lib/beet/recipes/rails/css/reset.rb",
      "lib/beet/recipes/rails/db/mysql.rb",
@@ -54,7 +55,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/jackdempsey/beet}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.3}
+  s.rubygems_version = %q{1.3.4}
   s.summary = %q{A gem to help with easily generating projects}
   s.test_files = [
     "test/executor_test.rb",
