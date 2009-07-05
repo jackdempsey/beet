@@ -4,6 +4,10 @@ Beet is a simple project generator, with its roots and underlying infrastructure
 
 Please visit the homepage to learn more: http://jackdempsey.github.com/beet
 
+= How to
+to work with ruby 1.9 recommend to use  josevalim-thor
+example: beet -g new_app --recipes rails/jquery,rails/authlogic,rails/git
+
 == Copyright
 
 Copyright (c) 2009 Jack Dempsey. See LICENSE for details.
