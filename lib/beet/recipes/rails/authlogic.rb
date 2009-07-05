@@ -247,7 +247,8 @@ file "app/views/users/show.html.erb" do
 end
 
 # can't rely on internal rails migration generation, so we do it this way
-run "script/generate migration beet_authlogic_create_user"
+run "cd script/"
+run "./generate migration beet_authlogic_create_user"
 
 #now open it
 file(Dir.glob('db/migrate/*beet_authlogic_create_user*').first) do
@@ -281,7 +282,7 @@ class BeetAuthlogicCreateUser < ActiveRecord::Migration
 end
 }.strip
 end
-
+run "cd .."
 gem 'authlogic', :version => '~> 2.0.0'
 
 rake "gems:install", :sudo => true

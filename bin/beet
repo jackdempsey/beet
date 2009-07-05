@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
- 
+
 require 'rubygems'
 require 'thor'
 begin
@@ -9,7 +9,7 @@ end
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'beet'
 require 'pp'
- 
+
 WIN32 = (RUBY_PLATFORM =~ /win32|mingw|bccwin|cygwin/) rescue nil
 SUDO = (WIN32 || ENV['SUDOLESS']) ? '': 'sudo '
 
@@ -21,16 +21,17 @@ class BeetRunner < Thor
   map "-l" => :list
   map "-d" => :display
   map "--list" => :list
+  map "--display" => :display
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options :recipes => :optional, :gems => :optional, :template => :optional, :save => :optional, :use => :optional
+  method_options :recipes => :string, :gems => :string, :template => :string, :save => :string, :use => :string
   def generate(app_name, project_type=:rails)
     executor = Beet::Executor.new(app_name, options.merge('project_type' => project_type))
     executor.start
   end
 
   desc 'just_recipe', "when you just need a recipe"
-  method_options :recipes => :optional, :gems => :optional, :save => :optional, :use => :optional
+  method_options :recipes => :string, :gems => :string, :save => :string, :use => :string
   def just_recipe(app_name='.')
     executor = Beet::Executor.new(app_name, options.merge('generate' => false))
     executor.start
@@ -38,7 +39,7 @@ class BeetRunner < Thor
 
   desc 'list', "list what recipes and templates beet knows about"
   def list
-    paths = [] 
+    paths = []
     paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
     paths << ENV['BEET_RECIPES_DIR'] if ENV['BEET_RECIPES_DIR']
     recipes = paths.map do |path|
@@ -51,7 +52,7 @@ class BeetRunner < Thor
   end
 
   desc 'display', "Display the code for the recipes/templates"
-  method_options :recipes => :optional, :template => :optional
+  method_options :recipes => :string, :template => :string
   def display(app_name='.')
     executor = Beet::Executor.new(app_name,options.merge('generate' => false, 'display' => true))
     executor.start
@@ -87,11 +88,11 @@ Description:
 
 Example:
     beet generate example_app --recipes="rails/authlogic, rails/clean_files, rails/git"
-    
+
     Same thing but shorter:
 
     beet -g example_app -t=rails/authlogic,rails/clean_files,rails/git
-} 
+}
   end
 end
 def method_missing(*args)
@@ -106,3 +107,4 @@ def method_missing(*args)
 end
 
 BeetRunner.start
+
