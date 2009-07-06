@@ -16,7 +16,7 @@ module Beet
 
     def initialize(project_name, options={}) # :nodoc:
       @root = calculate_project_root(project_name)
-      @project_name = project_name == '.' ? File.basename(Dir.pwd) : project_name
+      @project_name = ((project_name == '.') ? File.basename(Dir.pwd) : project_name)
       @logger = Beet::Logger.new
       @gems = []
       @template = options[:template]
