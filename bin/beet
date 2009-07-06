@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'thor'
 begin
-  require 'ruby-debug'
+ # require 'ruby-debug'
 rescue LoadError
 end
 $:.unshift(File.dirname(__FILE__) + '/../lib')
