@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'thor'
 begin
-  if RUBY_VERSION < '1.9'
+  if RUBY_VERSION <= '1.8'
     require 'ruby-debug'
   end
 rescue LoadError
