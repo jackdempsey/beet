@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'beet/logger'
+require 'logger'
 module Beet
   class Executor
     BEET_DATA_FILE = "~/.beet.yml"
@@ -27,6 +28,7 @@ module Beet
       @generate = true unless options[:generate] == false
       @display = options[:display]
       extract_commands_from_options
+      log 'root', @root
     end
 
     def start
@@ -75,7 +77,8 @@ module Beet
           if @display
             puts code
           else
-            in_root { self.instance_eval(code) }
+            log 'code!!', code
+            in_root { instance_eval(code)}
           end
         rescue LoadError, Errno::ENOENT => e
           raise "The recipe [#{recipe}] could not be loaded. Error: #{e}"

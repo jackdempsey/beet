@@ -23,6 +23,7 @@ class BeetRunner < Thor
   map "-l" => :list
   map "-d" => :display
   map "--list" => :list
+  map "--display" => :display
 
   desc 'generate [app_name]', "the main app generate method"
   method_options :recipes => :string, :gems => :string, :template => :string, :save => :string, :use => :string
@@ -108,3 +109,4 @@ def method_missing(*args)
 end
 
 BeetRunner.start
+
