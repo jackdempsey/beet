@@ -1,4 +1,4 @@
-file "app/models/user_session.rb" do 
+file "app/models/user_session.rb" do
   %{
 class UserSession < Authlogic::Session::Base
   logout_on_timeout true # default is false
@@ -129,11 +129,11 @@ file "app/controllers/users_controller.rb" do
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(params[:user])
     if @user.save
@@ -143,15 +143,15 @@ class UsersController < ApplicationController
       render :action => :new
     end
   end
-  
+
   def show
     @user = @current_user
   end
- 
+
   def edit
     @user = @current_user
   end
-  
+
   def update
     @user = @current_user # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
@@ -181,13 +181,13 @@ end
 file "app/views/users/edit.html.erb" do
     %{
 <h1>Edit My Account</h1>
- 
+
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
   <%= f.submit "Update" %>
 <% end %>
- 
+
 <br /><%= link_to "My Profile", account_path %>
 }.strip
 end
@@ -195,7 +195,7 @@ end
 file "app/views/users/new.html.erb" do
     %{
 <h1>Register</h1>
- 
+
 <% form_for @user, :url => account_path do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
@@ -210,46 +210,52 @@ file "app/views/users/show.html.erb" do
   <b>Email:</b>
   <%=h @user.email %>
 </p>
- 
+
 <p>
   <b>Login count:</b>
   <%=h @user.login_count %>
 </p>
- 
+
 <p>
   <b>Last request at:</b>
   <%=h @user.last_request_at %>
 </p>
- 
+
 <p>
   <b>Last login at:</b>
   <%=h @user.last_login_at %>
 </p>
- 
+
 <p>
   <b>Current login at:</b>
   <%=h @user.current_login_at %>
 </p>
- 
+
 <p>
   <b>Last login ip:</b>
   <%=h @user.last_login_ip %>
 </p>
- 
+
 <p>
   <b>Current login ip:</b>
   <%=h @user.current_login_ip %>
 </p>
- 
- 
+
+
 <%= link_to 'Edit', edit_account_path %>
 }.strip
 end
+
 # can't rely on internal rails migration generation, so we do it this way
-Dir.chdir("script")
-run "./generate migration beet_authlogic_create_user"
+
+#Dir.chdir("script") #for ruby 1.9.2 08/07/2009 . no need for ruby1.9.1p129
+#run "./generate migration beet_authlogic_create_user" # for ruby 1.9.2 08/07/2009. no need for ruby1.9.1p129
+
+run "script/generate migration beet_authlogic_create_user"
+
 #now open it
-Dir.chdir("..")
+#Dir.chdir("..") # for ruby 1.9.2 08/07/2009. no need for ruby1.9.1p129
+
 file(Dir.glob('db/migrate/*beet_authlogic_create_user*').first) do
   %{
 class BeetAuthlogicCreateUser < ActiveRecord::Migration
@@ -286,5 +292,6 @@ end
 gem 'authlogic', :version => '~> 2.0.0'
 
 rake "gems:install", :sudo => true
-rake "db:create:all" 
+rake "db:create:all"
 rake "db:migrate"
+
