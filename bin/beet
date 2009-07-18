@@ -93,7 +93,7 @@ class BeetRunner < Thor
 
       Same thing but shorter:
 
-      beet -g example_app -t=rails/authlogic,rails/clean_files,rails/git
+      beet -g example_app -r=rails/authlogic,rails/clean_files,rails/git
     } 
   end
 end
