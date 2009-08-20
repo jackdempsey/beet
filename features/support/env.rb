@@ -11,6 +11,12 @@ Before do
   ENV['HOME'] = @home_path
 end
 
+After do
+  unless ENV['LEAVE_CUCUMBER_GENERATED_OUTPUT']
+    FileUtils.rm_rf @active_project_folder
+  end
+end
+
 gem "fakeweb"
 require "fakeweb"
 
