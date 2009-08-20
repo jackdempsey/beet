@@ -8,6 +8,10 @@ module CommonHelpers
     FileUtils.chdir(project_folder, &block)
   end
 
+  def in_project_subfolder(folder, &block)
+    FileUtils.chdir(File.join(@active_project_folder, folder), &block)
+  end
+
   def in_home_folder(&block)
     FileUtils.chdir(@home_path, &block)
   end

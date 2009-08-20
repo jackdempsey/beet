@@ -1,5 +1,5 @@
-Given /this will run in the projects tmp directory/ do
-  @active_project_folder = File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'tmp')
+Given /this will run inside a clean "(.*)" directory/ do |directory|
+  @active_project_folder = File.expand_path File.join(File.dirname(__FILE__), '..', '..', directory)
   FileUtils.rm_rf @active_project_folder
   FileUtils.mkdir_p @active_project_folder
 end
@@ -10,6 +10,14 @@ end
 
 Given /"(.*)" folder is deleted/ do |folder|
   in_project_folder { FileUtils.rm_rf folder }
+end
+
+When /^inside "(.*)" I run local executable "(.*)" with arguments "(.*)"$/ do |directory, executable, arguments|
+  @stdout = File.expand_path(File.join(@tmp_root, "executable.out"))
+  executable = File.expand_path(File.join(File.dirname(__FILE__), "/../../bin", executable))
+  in_project_subfolder(directory) do
+    system "ruby #{executable} #{arguments} > #{@stdout} 2> #{@stdout}"
+  end
 end
 
 When /^I invoke "(.*)" generator with arguments "(.*)"$/ do |generator, arguments|
