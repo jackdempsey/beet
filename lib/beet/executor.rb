@@ -119,7 +119,11 @@ module Beet
     def add_gems
       if @gems
         @gems.each do |gem_data|
-          gem(gem_data[:name], :source => gem_data[:source])
+          if gem_data[:source]
+            gem(gem_data[:name], :source => gem_data[:source])
+          else
+            gem(gem_data[:name])
+          end
         end
       end
     end
@@ -130,7 +134,7 @@ module Beet
           if location = gem_location(gem)
             @gems << {:name => gem, :source => location}
           else
-            puts "gem: #{gem} not found. Did you spell it correctly? If so, submit a patch with its location!"
+            @gems << {:name => gem}
           end
         end
       end
