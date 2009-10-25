@@ -291,7 +291,12 @@ end
 
 gem 'authlogic', :version => '~> 2.0.0'
 
-rake "gems:install", :sudo => true
+if yes?("Install using sudo?")
+  rake "gems:install", :sudo => true
+else
+  rake "gems:install"
+end
+
 rake "db:create:all"
 rake "db:migrate"
 
