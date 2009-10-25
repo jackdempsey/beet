@@ -26,14 +26,14 @@ class BeetRunner < Thor
   map "--display" => :display
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options %w(recipes -r) => :string, %w(gems -g) => :string, %w(template -t) => :string, %w(save -s) => :string, %w(use -u) => :string
+  method_options %w(recipes -r) => :string, %w(gems) => :string, %w(template -t) => :string, %w(save -s) => :string, %w(use -u) => :string
   def generate(app_name, project_type=:rails)
     executor = Beet::Executor.new(app_name, options.merge('project_type' => project_type))
     executor.start
   end
 
   desc 'just_recipe', "when you just need a recipe"
-  method_options %w(recipes -r) => :string, %w(gems -g) => :string, %w(save -s) => :string, %w(use -u) => :string
+  method_options %w(recipes -r) => :string, %w(gems) => :string, %w(save -s) => :string, %w(use -u) => :string
   def just_recipe(app_name='.')
     executor = Beet::Executor.new(app_name, options.merge('generate' => false))
     executor.start
@@ -77,6 +77,8 @@ class BeetRunner < Thor
       -g, --generate                   Run the generate command to build a project
       -j, --just_recipe                Run the just_recipe command to only run specified recipes, templates, etc.
       -d, --display                    Instead of running, show the template or recipe body
+      -r, --recipes                    Recipes to use
+      --gems                           Gems to include
 
       Beet Info:
       -v, --version                    Show the Beet version number and quit.
