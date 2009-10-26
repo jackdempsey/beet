@@ -12,6 +12,6 @@ RackEnv development
 }.strip
 end
 default_to = "/etc/apache2/passenger_pane_vhosts"
-answer = ask "Write file to: [#{default_to} default]"
+answer = ask "Where should we write out vhost config: [#{default_to} is default]"
 filename = answer.empty? ? default_to : answer
 sudo "mv ./#{project_name}.local.vhost.conf #{filename}"
