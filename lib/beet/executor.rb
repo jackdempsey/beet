@@ -119,11 +119,8 @@ module Beet
     def add_gems
       if @gems
         @gems.each do |gem_data|
-          if gem_data[:source]
-            gem(gem_data[:name], :source => gem_data[:source])
-          else
-            gem(gem_data[:name])
-          end
+          name = gem_data.delete(:name)
+          gem(name, gem_data)
         end
       end
     end
@@ -131,8 +128,12 @@ module Beet
     def extract_commands_from_options
       if @options[:gems]
         @options[:gems].split(/[\s,]+/).each do |gem|
-          if location = gem_location(gem)
-            @gems << {:name => gem, :source => location}
+          if gem_info = gem_location(gem)
+            if gem_info.is_a?(Hash)
+              @gems << {:name => gem}.merge(gem_info)
+            else
+              @gems << {:name => gem, :source => gem_info}
+            end
           else
             @gems << {:name => gem}
           end

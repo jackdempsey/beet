@@ -61,5 +61,5 @@ GEM_LOCATIONS = {
   'passenger'              => 'git://github.com/FooBarWidget/passenger.git',
   'thin'                   => 'git://github.com/macournoyer/thin.git',
   'happymapper'            => 'git://github.com/jnunemaker/happymapper.git',
-  'simple-navigation'      => 'git://github.com/andi/simple-navigation.git'
+  'simple-navigation'      => {:source => 'git://github.com/andi/simple-navigation.git', :lib => 'simple_navigation'}
 }
