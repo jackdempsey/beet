@@ -78,6 +78,8 @@ class BeetRunner < Thor
       -j, --just_recipe                Run the just_recipe command to only run specified recipes, templates, etc.
       -d, --display                    Instead of running, show the template or recipe body
       -r, --recipes                    Recipes to use
+      -s, --save                       Save current set of options
+      -u, --use                        Use a saved set of options
       --gems                           Gems to include
 
       Beet Info:
