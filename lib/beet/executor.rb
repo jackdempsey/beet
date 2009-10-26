@@ -119,8 +119,9 @@ module Beet
     def add_gems
       if @gems
         @gems.each do |gem_data|
-          name = gem_data.delete(:name)
-          gem(name, gem_data)
+          duped_data = gem_data.clone # to avoid removing :name from @gems
+          name = duped_data.delete(:name)
+          gem(name, duped_data)
         end
       end
     end
