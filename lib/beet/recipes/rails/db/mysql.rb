@@ -40,3 +40,8 @@ production:
 end
 
 FileUtils.copy "config/database.yml", "config/database.yml.example"
+
+if yes?("Create databases using rake db:create:all?")
+  rake "db:create:all"
+end
+
