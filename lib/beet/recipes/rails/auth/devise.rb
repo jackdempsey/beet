@@ -1,6 +1,7 @@
 gem 'warden', :version => '~> 0.5.1'
 gem 'devise', :version => '~> 0.4.1'
 
+rake 'gems:install'
 generate "devise_install"
 generate "devise User"
 generate "devise_views"
