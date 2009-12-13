@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{beet}
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
-  s.date = %q{2009-12-11}
+  s.date = %q{2009-12-12}
   s.default_executable = %q{beet}
   s.email = %q{jack.dempsey@gmail.com}
   s.executables = ["beet"]
@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
      "lib/beet/recipes/rails/cms/bcms_blog.rb",
      "lib/beet/recipes/rails/cms/bcms_event.rb",
      "lib/beet/recipes/rails/css/blueprint.rb",
+     "lib/beet/recipes/rails/css/nifty_layout.rb",
      "lib/beet/recipes/rails/css/reset.rb",
      "lib/beet/recipes/rails/db/mysql.rb",
      "lib/beet/recipes/rails/db/postgres.rb",
