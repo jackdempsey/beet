@@ -1,5 +1,5 @@
-gem 'warden', :version => '~> 0.5.1'
-gem 'devise', :version => '~> 0.4.1'
+gem 'warden', :version => '~> 0.6.5'
+gem 'devise', :version => '~> 0.7.1'
 
 rake 'gems:install'
 generate "devise_install"
