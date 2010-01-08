@@ -1,3 +1,4 @@
+# lots of code and ideas borrowed from http://jetpackweb.com/blog/2009/10/21/rails-2-3-4-and-swfupload-rack-middleware-for-flash-uploads-that-degrade-gracefully/
 # setup directories to hold files
 run 'mkdir public/javascripts/swfupload'
 run 'mkdir public/flash'
