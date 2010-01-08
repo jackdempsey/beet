@@ -2,6 +2,7 @@
 # setup directories to hold files
 FileUtils.mkdir_p 'public/javascripts/swfupload'
 FileUtils.mkdir_p 'public/flash/swfupload'
+FileUtils.mkdir_p 'public/images/swfupload'
 FileUtils.mkdir_p 'app/views/swfupload'
 FileUtils.mkdir_p 'app/stylesheets'
 
@@ -14,9 +15,10 @@ js_files.each do |js_file|
   run "curl -L #{base_url}/#{js_file}.js > public/javascripts/swfupload/#{js_file}.js"
 end
 
-run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/samples/demos/swfobjectdemo/js/handlers.js > public/javascripts/swfupload/handlers.js"
+run "curl -L http://github.com/jackdempsey/beet/raw/master/lib/beet/files/swfupload/js/handlers.js > public/javascripts/swfupload/handlers.js"
 run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/swfupload.js > public/javascripts/swfupload/swfupload.js"
 run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/Flash/swfupload.swf > public/flash/swfupload/swfupload.swf"
+run "curl -L http://github.com/jackdempsey/beet/raw/master/lib/beet/files/swfupload/images/cancelbutton.gif > public/images/swfupload/cancelbutton.gif"
 
 file 'app/stylesheets/swfupload.sass', <<-FILE
 divFileProgressContainer
@@ -91,7 +93,7 @@ file 'app/views/swfupload/_upload.html.haml', %q{
   = stylesheet_link_tag %w(compiled/swfupload)
 - session_key_name = ActionController::Base.session_options[:key]
 
-- upload_url = songs_url
+- upload_url = songs_path
 - form_tag upload_url, :multipart => true do
   #swfupload_degraded_container
     %noscript= "You should have Javascript enabled for a nicer upload experience"
