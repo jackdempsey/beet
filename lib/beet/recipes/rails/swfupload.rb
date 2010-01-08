@@ -18,6 +18,7 @@ end
 run "curl -L http://github.com/jackdempsey/beet/raw/master/lib/beet/files/swfupload/js/handlers.js > public/javascripts/swfupload/handlers.js"
 run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/swfupload.js > public/javascripts/swfupload/swfupload.js"
 run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/Flash/swfupload.swf > public/flash/swfupload/swfupload.swf"
+run "chmod +x public/flash/swfupload/swfupload.swf"
 run "curl -L http://github.com/jackdempsey/beet/raw/master/lib/beet/files/swfupload/images/cancelbutton.gif > public/images/swfupload/cancelbutton.gif"
 
 file 'app/stylesheets/swfupload.sass', <<-FILE
@@ -187,6 +188,7 @@ class SongsController < ApplicationController
   end
 
   def create
+    require 'mime/types'
     mp3_info = Mp3Info.new(params[:Filedata].path)
 
     song = Song.new
@@ -213,12 +215,19 @@ class Song < ActiveRecord::Base
  
   has_attached_file :track
  
-  validates_presence_of :title, :artist, :length_in_seconds
+#  validates_presence_of :title, :artist, :length_in_seconds
   validates_attachment_presence :track
   validates_attachment_content_type :track, :content_type => [ 'application/mp3', 'application/x-mp3', 'audio/mpeg', 'audio/mp3' ]
   validates_attachment_size :track, :less_than => 20.megabytes
  
   attr_accessible :title, :artist, :length_in_seconds
+
+  def convert_seconds_to_time
+    total_minutes = length_in_seconds / 1.minutes
+    seconds_in_last_minute = length_in_seconds - total_minutes.minutes.seconds
+    "\#{total_minutes}m \#{seconds_in_last_minute}s"
+  end
+
  
 end
 FILE
