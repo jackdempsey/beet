@@ -151,37 +151,7 @@ file 'app/views/swfupload/_upload.html.haml', %q{
   };
 }
 
-create_action = <<-FILE
-def create
-  params[:Filedata].content_type = MIME::Types.type_for(params[:Filedata].original_filename).to_s
-  song = Song.new
-  # set song attributes, etc
-  song.save
-  render :text => "File information here that shows up as the result to the client"
-rescue Exception => e
-  render :text => e.message
-end 
-FILE
-
-
-model_file = <<-FILE
-class Song < ActiveRecord::Base
- 
-  has_attached_file :track
- 
-  validates_presence_of :title, :artist, :length_in_seconds
-  validates_attachment_presence :track
-  validates_attachment_content_type :track, :content_type => [ 'application/mp3', 'application/x-mp3', 'audio/mpeg', 'audio/mp3' ]
-  validates_attachment_size :track, :less_than => 20.megabytes
- 
-  attr_accessible :title, :artist, :length_in_seconds
- 
-end
-FILE
-
-
-
-file 'config/initializers/session_store.rb', <<-FILE
+append_file 'config/initializers/session_store.rb', <<-FILE
 require 'rack/utils'
  
 class FlashSessionCookieMiddleware
@@ -202,8 +172,81 @@ end
 ActionController::Dispatcher.middleware.insert_before(ActionController::Base.session_store, FlashSessionCookieMiddleware, ActionController::Base.session_options[:key])
 FILE
 
-puts '=' * 80
-puts "\nYour controller's create action should look something like this:\n#{create_action}"
+# example Song resource for those who want it
+controller_file = <<-FILE
+class SongsController < ApplicationController
+  def index
+    @songs = Song.all
+  end
+
+  def create
+    params[:Filedata].content_type = MIME::Types.type_for(params[:Filedata].original_filename).to_s
+    song = Song.new
+    # set song attributes, etc
+    song.save
+    render :text => "File information here that shows up as the result to the client"
+  rescue Exception => e
+    render :text => e.message
+  end 
+end
+FILE
+
+
+model_file = <<-FILE
+class Song < ActiveRecord::Base
+ 
+  has_attached_file :track
+ 
+  validates_presence_of :title, :artist, :length_in_seconds
+  validates_attachment_presence :track
+  validates_attachment_content_type :track, :content_type => [ 'application/mp3', 'application/x-mp3', 'audio/mpeg', 'audio/mp3' ]
+  validates_attachment_size :track, :less_than => 20.megabytes
+ 
+  attr_accessible :title, :artist, :length_in_seconds
+ 
+end
+FILE
+
+view_file = <<-FILE
+<h1>Songs</h1>
+
+<% @songs.each do |song| %>
+  <p><%= song.title %></p>
+<% end %>
+FILE
+
+migration_file = <<-FILE
+class CreateSongs < ActiveRecord::Migration
+  def self.up
+    create_table :songs do |t|
+      t.string :artist
+      t.string :title
+      t.integer :length_in_seconds
+      t.string :track_file_name
+      t.string :track_content_type
+      t.integer :track_file_size
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :songs
+  end
+end
+FILE
 
 puts '=' * 80
-puts "\nYou can create a model that looks like this:\n#{model_file}"
+if yes? "Create an example resource using Paperclip? (y/n)"
+  file 'app/controllers/songs_controller.rb', controller_file
+  file 'app/models/song.rb', model_file
+  FileUtils.mkdir 'app/views/songs'
+  file 'app/views/songs/index.html.erb', view_file
+  gem 'paperclip'
+  generate "migration", "create_songs"
+  filename = Dir['db/migrate/*create_songs.rb'].first
+  file filename, migration_file
+  rake "db:migrate"
+else
+  puts "\nYour controller's create action should look something like this:\n#{controller_file}"
+  puts "\nYou can create a model that looks like this:\n#{model_file}"
+end
