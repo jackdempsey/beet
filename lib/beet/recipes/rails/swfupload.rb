@@ -1,20 +1,22 @@
 # lots of code and ideas borrowed from http://jetpackweb.com/blog/2009/10/21/rails-2-3-4-and-swfupload-rack-middleware-for-flash-uploads-that-degrade-gracefully/
 # setup directories to hold files
-run 'mkdir public/javascripts/swfupload'
-run 'mkdir public/flash'
-run 'mkdir app/views/swfupload'
-run 'mkdir app/stylesheets'
+FileUtils.mkdir_p 'public/javascripts/swfupload'
+FileUtils.mkdir_p 'public/flash/swfupload'
+FileUtils.mkdir_p 'app/views/swfupload'
+FileUtils.mkdir_p 'app/stylesheets'
 
-# download files
-base_url = 'http://code.google.com/p/swfupload/source/browse/swfupload/trunk/core/plugins'
+# download plugin files
+base_url = 'http://swfupload.googlecode.com/svn/swfupload/trunk/core/plugins'
 
-js_files = %w(swfupload.cookies swfupload.queue swfupload.speed swfupload.swfobject)
+js_files = %w(swfupload.cookies swfupload.queue swfupload.speed swfupload.swfobject handlers swfupload)
 
 js_files.each do |js_file|
   run "curl -L #{base_url}/#{js_file}.js > public/javascripts/swfupload/#{js_file}.js"
 end
 
-run "curl -L http://code.google.com/p/swfupload/source/browse/swfupload/trunk/core/Flash/swfupload.swf > public/flash/swfupload.swf"
+run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/samples/demos/swfobjectdemo/js/handlers.js > public/javascripts/swfupload/handlers.js"
+run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/swfupload.js > public/javascripts/swfupload/swfupload.js"
+run "curl -L http://swfupload.googlecode.com/svn/swfupload/trunk/core/Flash/swfupload.swf > public/flash/swfupload/swfupload.swf"
 
 file 'app/stylesheets/swfupload.sass', <<-FILE
 divFileProgressContainer
@@ -89,7 +91,7 @@ file 'app/views/swfupload/_upload.html.haml', %q{
   = stylesheet_link_tag %w(compiled/swfupload)
 - session_key_name = ActionController::Base.session_options[:key]
 
-- upload_url = '/upload/url/here'
+- upload_url = songs_url
 - form_tag upload_url, :multipart => true do
   #swfupload_degraded_container
     %noscript= "You should have Javascript enabled for a nicer upload experience"
@@ -176,19 +178,30 @@ FILE
 # example Song resource for those who want it
 controller_file = <<-FILE
 class SongsController < ApplicationController
+  layout 'swfupload'
+
   def index
     @songs = Song.all
   end
 
   def create
-    params[:Filedata].content_type = MIME::Types.type_for(params[:Filedata].original_filename).to_s
+    mp3_info = Mp3Info.new(params[:Filedata].path)
+
     song = Song.new
-    # set song attributes, etc
+    song.artist = mp3_info.tag.artist
+    song.title = mp3_info.tag.title
+    song.length_in_seconds = mp3_info.length.to_i
+
+    params[:Filedata].content_type = MIME::Types.type_for(params[:Filedata].original_filename).to_s
+    song.track = params[:Filedata]
     song.save
-    render :text => "File information here that shows up as the result to the client"
+
+    render :text => [song.artist, song.title, song.convert_seconds_to_time].join(" - ")
+  rescue Mp3InfoError => e
+    render :text => "File error"
   rescue Exception => e
     render :text => e.message
-  end 
+  end
 end
 FILE
 
@@ -209,11 +222,12 @@ end
 FILE
 
 view_file = <<-FILE
-<h1>Songs</h1>
+%h1 Songs
 
-<% @songs.each do |song| %>
-  <p><%= song.title %></p>
-<% end %>
+- @songs.each do |song|
+  %p= song.title
+
+= render 'swfupload/upload'
 FILE
 
 migration_file = <<-FILE
@@ -236,18 +250,45 @@ class CreateSongs < ActiveRecord::Migration
 end
 FILE
 
+layout_file = <<-FILE
+!!! Strict
+%html
+  %head
+    %title
+      = h(yield(:title) || "Untitled")
+    = '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>'
+    = '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery-ui.min.js"></script>'
+    = yield(:head)
+  %body
+    #container
+      = yield
+FILE
+
 puts '=' * 80
 if yes? "Create an example resource using Paperclip? (y/n)"
+  FileUtils.mkdir_p 'app/views/songs'
+  FileUtils.mkdir_p 'public/stylesheets/compiled'
+
+  file 'app/views/layouts/swfupload.html.haml', layout_file
   file 'app/controllers/songs_controller.rb', controller_file
   file 'app/models/song.rb', model_file
-  FileUtils.mkdir 'app/views/songs'
-  file 'app/views/songs/index.html.erb', view_file
-  gem 'paperclip'
+  file 'app/views/songs/index.html.haml', view_file
+
   generate "migration", "create_songs"
   filename = Dir['db/migrate/*create_songs.rb'].first
   file filename, migration_file
   rake "db:migrate"
+
+  gem 'paperclip'
+  gem 'haml'
+  gem 'ruby-mp3info', :lib => 'mp3info'
+
+  run "sass app/stylesheets/swfupload.sass > public/stylesheets/compiled/swfupload.css"
+
+  route 'map.resources :songs'
+
+  puts "Now fire up the app and go to /songs to test it out!"
 else
-  puts "\nYour controller's create action should look something like this:\n#{controller_file}"
+  puts "\nYour controller should have a create action that looks something like this:\n#{controller_file}"
   puts "\nYou can create a model that looks like this:\n#{model_file}"
 end
