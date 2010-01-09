@@ -6,4 +6,4 @@ Please visit the homepage to learn more: http://jackdempsey.github.com/beet
 
 == Copyright
 
-Copyright (c) 2009 Jack Dempsey. See LICENSE for details.
+Copyright (c) 2010 Jack Dempsey. See LICENSE for details.
