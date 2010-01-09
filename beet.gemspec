@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{beet}
-  s.version = "0.4.4"
+  s.version = "0.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
@@ -54,6 +54,7 @@ Gem::Specification.new do |s|
      "lib/beet/recipes/rails/cms/bcms_blog.rb",
      "lib/beet/recipes/rails/cms/bcms_event.rb",
      "lib/beet/recipes/rails/css/blueprint.rb",
+     "lib/beet/recipes/rails/css/compass.rb",
      "lib/beet/recipes/rails/css/nifty_layout.rb",
      "lib/beet/recipes/rails/css/reset.rb",
      "lib/beet/recipes/rails/db/mongo.rb",
