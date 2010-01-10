@@ -43,7 +43,7 @@ class BeetRunner < Thor
   def list
     paths = [] 
     paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
-    paths << ENV['BEET_RECIPES_DIR'] if ENV['BEET_RECIPES_DIR']
+    paths << ENV['BEET_RECIPES_DIR'] + '/**/*.rb' if ENV['BEET_RECIPES_DIR']
     recipes = paths.map do |path|
       Dir.glob(path)
     end.flatten.compact
