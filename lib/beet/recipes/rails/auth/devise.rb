@@ -15,7 +15,7 @@ rake "db:migrate"
 file 'app/controllers/home_controller.rb' do
   %{class HomeController < ApplicationController
   def index 
-    render :text => "Welcome!"
+    render :text => "Welcome from your HomeController!"
   end
 end
   }
