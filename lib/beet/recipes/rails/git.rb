@@ -11,7 +11,7 @@ log/*.*
 db/*.db
 db/*.sqlite3
 db/schema.rb
-tmp/*.*
+tmp/*
 .DS_Store
 doc/api
 doc/app
