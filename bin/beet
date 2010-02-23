@@ -26,9 +26,9 @@ class BeetRunner < Thor
   map "--display" => :display
 
   desc 'generate [app_name]', "the main app generate method"
-  method_options %w(recipes -r) => :string, %w(gems) => :string, %w(template -t) => :string, %w(save -s) => :string, %w(use -u) => :string
-  def generate(app_name, project_type=:rails)
-    executor = Beet::Executor.new(app_name, options.merge('project_type' => project_type))
+  method_options %w(recipes -r) => :string, %w(project_type -p) => :project_type, %w(gems) => :string, %w(template -t) => :string, %w(save -s) => :string, %w(use -u) => :string
+  def generate(app_name)
+    executor = Beet::Executor.new(app_name, options)
     executor.start
   end
 

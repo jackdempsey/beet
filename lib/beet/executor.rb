@@ -24,7 +24,7 @@ module Beet
       @options = options
       @todo_items = ''
       @recipes = []
-      @project_type = options[:project_type]
+      @project_type = options[:project_type].to_sym || :rails
       @generate = true unless options[:generate] == false
       @display = options[:display]
       extract_commands_from_options
@@ -45,6 +45,21 @@ module Beet
         puts open(TEMPLATE_LOCATIONS[@template]).read
       else
         case @project_type
+        when :rails3
+          # TODO win compatibility
+          unless `which rails3`.blank?
+            if @generate
+              puts "Generating rails 3 project #{project_name}..."
+              if @template
+                system("rails3 #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
+              else
+                system("rails3 #{project_name}")
+              end
+            end
+          else
+            puts "Beet relies on you defining a rails3 command to build rails 3 projects. Please make sure one is available in your PATH."
+            exit
+          end
         when :rails
           if @generate
             puts "Generating rails project #{project_name}..."
