@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'beet/logger'
+require 'yaml'
 
 module Beet
   class Executor
@@ -167,7 +168,6 @@ module Beet
     end
 
     def save_run
-      require 'yaml'
       name = if options[:save] == true
                ask("Enter a name for this configuration: ")
              else
@@ -184,7 +184,7 @@ module Beet
 
     def load_saved_recipe_file
       if File.exists?(beet_data_file)
-        YAML.load_file(beet_data_file)
+        ::YAML.load_file(beet_data_file)
       else
         {}
       end
