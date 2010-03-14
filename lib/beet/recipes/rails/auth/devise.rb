@@ -1,3 +1,4 @@
+# this is designed for rails 3
 gem 'warden', :version => '0.9.3'
 gem 'devise', :version => '1.0.2'
 
@@ -6,8 +7,7 @@ generate "devise_install"
 generate "devise User"
 generate "devise_views"
 
-append_file 'config/environments/development.rb', "\nconfig.action_mailer.default_url_options = { :host => 'localhost:3000' }\n"
-add_after 'config/routes.rb', '# map.root :controller => "welcome"', "\n  map.root :controller => 'home'\n"
+add_after 'config/routes.rb', '# root :to => "welcome#index"', "\n  root :controller => 'home'\n"
 
 rake "db:migrate"
 
