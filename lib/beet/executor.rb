@@ -25,7 +25,7 @@ module Beet
       @options = options
       @todo_items = ''
       @recipes = []
-      @project_type = options[:project_type].to_sym || :rails
+      @project_type = (options[:project_type] && options[:project_type].to_sym) || :rails3
       @generate = true unless options[:generate] == false
       @display = options[:display]
       extract_commands_from_options
