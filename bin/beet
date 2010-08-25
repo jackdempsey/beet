@@ -103,16 +103,6 @@ class BeetRunner < Thor
     } 
   end
 end
-def method_missing(*args)
-  unless @activesupport_required
-    require 'activesupport'
-    @activesupport_required = true
-    m = args.shift
-    send(m, *args)
-  else
-    super
-  end
-end
 
 BeetRunner.start
 
