@@ -9,7 +9,7 @@ begin
     gem.email = "jack.dempsey@gmail.com"
     gem.homepage = "http://github.com/jackdempsey/beet"
     gem.authors = ["Jack Dempsey"]
-    gem.add_dependency "thor", "~> 0.11.6"
+    gem.add_dependency "thor", "~> 0.14.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
