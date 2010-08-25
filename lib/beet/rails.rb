@@ -56,19 +56,30 @@ module Beet
     # Adds an entry into config/environment.rb for the supplied gem :
     def gem(name, options = {})
       log 'gem', name
-      env = options.delete(:env)
+      group = options.delete(:group)
+      version = options.delete(:version)
 
-      gems_code = "config.gem '#{name}'"
+      gems_code = "gem '#{name}'"
+      gems_code << ", '#{version}'" if version
 
       if options.any?
         opts = options.inject([]) {|result, h| result << [":#{h[0]} => #{h[1].inspect.gsub('"',"'")}"] }.sort.join(", ")
         gems_code << ", #{opts}"
       end
 
-      environment gems_code, :env => env
+      gemfile(gems_code, :group => group)
     end
 
-    # Adds a line inside the Initializer block for config/environment.rb. Used by #gem
+    # Adds a line inside the Gemfile. Used by #gem
+    # If options :group is specified, the line is added inside the corresponding group
+    def gemfile(data, options={})
+      if options[:group]
+        data = "group :#{options[:group]} do\n#{data}\nend"
+      end
+      append_file "Gemfile", data
+    end
+
+    # Adds a line inside the Initializer block for config/environment.rb.
     # If options :env is specified, the line is appended to the corresponding
     # file in config/environments/#{env}.rb
     def environment(data = nil, options = {}, &block)
