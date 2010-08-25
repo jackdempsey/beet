@@ -45,24 +45,16 @@ module Beet
       if @display && @template
         puts open(TEMPLATE_LOCATIONS[@template]).read
       else
-        case @project_type
-        when :rails3
-          # TODO win compatibility
-          unless `which rails3`.blank?
-            if @generate
-              puts "Generating rails 3 project #{project_name}..."
-              if @template
-                system("rails3 #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
-              else
-                system("rails3 #{project_name}")
-              end
+        if @generate
+          # TODO maybe let people specify path to rails 3 script rather than just assume its 'rails'
+          if @project_type == :rails3
+            puts "Generating rails 3 project #{project_name}..."
+            if @template
+              system("rails new #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
+            else
+              system("rails new #{project_name}")
             end
           else
-            puts "Beet relies on you defining a rails3 command to build rails 3 projects. Please make sure one is available in your PATH."
-            exit
-          end
-        when :rails
-          if @generate
             puts "Generating rails project #{project_name}..."
             if @template
               system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
