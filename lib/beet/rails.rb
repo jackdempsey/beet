@@ -151,7 +151,7 @@ module Beet
       log 'generating', what
       argument = args.map {|arg| arg.to_s }.flatten.join(" ")
 
-      in_root { run_ruby_script("script/generate #{what} #{argument}", false) }
+      in_root { run_ruby_script("script/rails generate #{what} #{argument}", false) }
     end
   end # Rails
 end # Beet
