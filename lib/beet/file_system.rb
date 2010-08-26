@@ -120,6 +120,21 @@ module Beet
       end
     end
 
+    # Add text after matching line, otherwise append to file wrapped in before/after text
+    #
+    # ==== Example
+    #
+    #    add_after_or_append 'Gemfile', 'group :test', "gem 'rspec-rails'", "group :test do", "end"
+    #
+    def add_after_or_append(filename, matching_text, text_to_add, before_text, after_text)
+      content = File.read(filename)
+      if content.include?(matching_text)
+        add_after(filename, matching_text, text_to_add)
+      else
+        append_file(filename, [before_text, text_to_add, after_text].join("\n"))
+      end
+    end
+
     # Add text before matching line
     #
     # ==== Example
