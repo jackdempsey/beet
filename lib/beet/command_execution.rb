@@ -1,5 +1,5 @@
 module Beet
-  module Execution
+  module CommandExecution
     # Executes a command
     #
     # ==== Example

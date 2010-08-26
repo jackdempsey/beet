@@ -5,7 +5,7 @@ require 'yaml'
 module Beet
   class Executor
     BEET_DATA_FILE = "~/.beet.yml"
-    include Beet::Execution
+    include Beet::CommandExecution
     include Beet::FileSystem
     include Beet::Interaction
 
