@@ -53,10 +53,16 @@ module Beet
       end
     end
 
+    def gem_group(group)
+      @_gem_group = group
+      yield
+      @_gem_group = nil
+    end
+
     # Adds an entry into config/environment.rb for the supplied gem :
     def gem(name, options = {})
       log 'gem', name
-      group = options.delete(:group)
+      group = options.delete(:group) || @_gem_group
       version = options.delete(:version)
 
       gems_code = "gem '#{name}'"
@@ -76,10 +82,10 @@ module Beet
       if group = options[:group]
         if group.is_a?(Array)
           group.each do |g|
-            add_after_or_append "Gemfile", "^group :#{g} do", "\s\s" + data, "group :#{g} do", "end\n"
+            add_after_or_append "Gemfile", "group :#{g} do", "\s\s" + data, "group :#{g} do", "end\n"
           end
         else
-          add_after_or_append "Gemfile", "^group :#{group} do", "\s\s" + data, "group :#{group} do", "end\n"
+          add_after_or_append "Gemfile", "group :#{group} do", "\s\s" + data, "group :#{group} do", "end\n"
         end
       else
         append_file "Gemfile", data
