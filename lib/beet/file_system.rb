@@ -87,9 +87,8 @@ module Beet
     #
     #   gsub_file 'app/controllers/application_controller.rb', /#\s*(filter_parameter_logging :password)/, '\1'
     #
-    def gsub_file(relative_destination, regexp, *args, &block)
+    def gsub_file(path, regexp, *args, &block)
       #path = destination_path(relative_destination)
-      path = relative_destination
       content = File.read(path)
       check_for = args.first || yield('')
       regex = Regexp.new(regexp.source + Regexp.escape(check_for))
