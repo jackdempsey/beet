@@ -73,13 +73,13 @@ module Beet
     # Adds a line inside the Gemfile. Used by #gem
     # If options :group is specified, the line is added inside the corresponding group
     def gemfile(data, options={})
-      if options[:group]
-        if options[:group].is_a?(Array)
-          options[:group].each do |group|
-            add_after_or_append "Gemfile", "^group :#{group}", "\s\s" + data, "group :#{group} do", "end\n"
+      if group = options[:group]
+        if group.is_a?(Array)
+          group.each do |g|
+            add_after_or_append "Gemfile", "^group :#{g} do", "\s\s" + data, "group :#{g} do", "end\n"
           end
         else
-          add_after_or_append "Gemfile", "^group :#{group}", "\s\s" + data, "group :#{group} do", "end\n"
+          add_after_or_append "Gemfile", "^group :#{group} do", "\s\s" + data, "group :#{group} do", "end\n"
         end
       else
         append_file "Gemfile", data
