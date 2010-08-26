@@ -74,9 +74,16 @@ module Beet
     # If options :group is specified, the line is added inside the corresponding group
     def gemfile(data, options={})
       if options[:group]
-        data = "group :#{options[:group]} do\n#{data}\nend"
+        if options[:group].is_a?(Array)
+          options[:group].each do |group|
+            add_after_or_append "Gemfile", "^group :#{group}", "\s\s" + data, "group :#{group} do", "end\n"
+          end
+        else
+          add_after_or_append "Gemfile", "^group :#{group}", "\s\s" + data, "group :#{group} do", "end\n"
+        end
+      else
+        append_file "Gemfile", data
       end
-      append_file "Gemfile", data
     end
 
     # Adds a line inside the Initializer block for config/environment.rb.
