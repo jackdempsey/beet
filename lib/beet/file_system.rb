@@ -105,7 +105,7 @@ module Beet
     #
     def append_file(relative_destination, data)
       path = destination_path(relative_destination)
-      File.open(path, 'ab') { |file| file.write(data) }
+      File.open(path, 'ab') { |file| file.write("\n#{data}") }
     end
 
     # Add text after matching line
