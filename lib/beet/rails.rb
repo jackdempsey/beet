@@ -59,7 +59,8 @@ module Beet
       @_gem_group = nil
     end
 
-    # Adds an entry into config/environment.rb for the supplied gem :
+    # TODO prevent same gem from being added twice
+    # Passes gem info along to gemfile method that handles adding it in
     def gem(name, options = {})
       log 'gem', name
       group = options.delete(:group) || @_gem_group
