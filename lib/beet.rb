@@ -1,5 +1,5 @@
 # TODO similarly, figure out how to require things as needed by the template
-require 'beet/execution'
+require 'beet/command_execution'
 require 'beet/file_system'
 require 'beet/interaction'
 require 'beet/capistrano'
