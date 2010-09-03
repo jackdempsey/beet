@@ -1,3 +1,7 @@
+gem "mysql"
+
+run "bundle install"
+
 file 'config/database.yml' do
   %{  
 ---
