@@ -7,3 +7,6 @@ plugin 'render_component', :git => 'git://github.com/vhochstein/render_component
 # configure as much as we can automatically
 add_after 'app/views/layouts/application.html.erb','  <%= csrf_meta_tag %>', '  <%= active_scaffold_includes %>'
 
+#TODO: should probably make using prototype an option as well?
+gsub_file 'vendor/plugins/active_scaffold/environment.rb', /#ActiveScaffold.js_framework = :jquery/, 'ActiveScaffold.js_framework = :jquery'
+
