@@ -32,7 +32,7 @@ module Beet
     end
 
     def start
-      if @options[:use]
+      if options[:use]
         puts "Loading saved configuration: #{@options[:use]}"
         data = load_saved_recipe_file
         if config = data[@options[:use]]
@@ -68,7 +68,7 @@ module Beet
 
         print_todo
 
-        if @options[:save]
+        if options[:save]
           save_run
         end
       end
@@ -135,8 +135,8 @@ module Beet
     end
 
     def extract_commands_from_options
-      if @options[:gems]
-        @options[:gems].split(/[\s,]+/).each do |gem|
+      if options[:gems]
+        options[:gems].split(/[\s,]+/).each do |gem|
           if gem_info = gem_location(gem)
             if gem_info.is_a?(Hash)
               @gems << {:name => gem}.merge(gem_info)
@@ -148,8 +148,8 @@ module Beet
           end
         end
       end
-      if @options[:recipes]
-        @options[:recipes].split(/[\s,]+/).each do |recipe|
+      if options[:recipes]
+        options[:recipes].split(/[\s,]+/).each do |recipe|
           if file = recipe_location(recipe)
             @recipes << file
           else
