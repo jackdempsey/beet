@@ -177,7 +177,7 @@ module Beet
 
     def load_saved_recipe_file
       if File.exists?(beet_data_file)
-        ::YAML.load_file(beet_data_file)
+        ::YAML.load_file(beet_data_file) || {} # if for some reason is nil, give back an empty hash
       else
         {}
       end
