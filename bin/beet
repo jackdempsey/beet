@@ -40,6 +40,7 @@ class BeetRunner < Thor
   end
 
   desc 'list', "list what recipes and templates beet knows about"
+  method_options %w(templates -t) => :string
   def list(pattern=nil)
     paths = [] 
     paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
@@ -52,8 +53,12 @@ class BeetRunner < Thor
 
     puts "\nRecipes: (e.g. beet -g app -r rails/git)"
     pp recipes
-    puts "\nTemplates: (e.g. beet -g app -t bort)"
-    pp TEMPLATE_LOCATIONS.sort.map {|array| array[0] + " => " + array[1]}
+
+    if options[:templates]
+      puts "\nTemplates: (e.g. beet -g app -t bort)"
+      pp TEMPLATE_LOCATIONS.sort.map {|array| array[0] + " => " + array[1]}
+    end
+
     puts "\nSaved Configurations:"
     print `cat #{ENV['HOME']}/.beet.yml`
   end
