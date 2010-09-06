@@ -40,13 +40,16 @@ class BeetRunner < Thor
   end
 
   desc 'list', "list what recipes and templates beet knows about"
-  def list
+  def list(pattern=nil)
     paths = [] 
     paths << File.dirname(__FILE__) + '/../lib/beet/recipes/**/*.rb'
     paths << ENV['BEET_RECIPES_DIR'] + '/**/*.rb' if ENV['BEET_RECIPES_DIR']
     recipes = paths.map do |path|
       Dir.glob(path)
     end.flatten.compact
+
+    recipes = recipes.grep(Regexp.new(pattern)) if pattern
+
     puts "\nRecipes: (e.g. beet -g app -r rails/git)"
     pp recipes
     puts "\nTemplates: (e.g. beet -g app -t bort)"
