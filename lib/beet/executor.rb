@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'beet/logger'
 require 'yaml'
+require 'ruby-debug'
 
 module Beet
   class Executor
