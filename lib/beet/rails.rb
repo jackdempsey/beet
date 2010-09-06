@@ -46,7 +46,7 @@ module Beet
         end
       elsif options[:git] || options[:svn]
         in_root do
-          run_ruby_script("script/plugin install #{options[:svn] || options[:git]}", false)
+          run_ruby_script("script/rails plugin install #{options[:svn] || options[:git]}", false)
         end
       else
         log "! no git or svn provided for #{name}.  skipping..."
