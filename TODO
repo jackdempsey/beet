@@ -15,3 +15,5 @@ and want to verify things worked correctly
 * add ability to set --prefix rails3 so you're not typing rails3/auth/devise, rails3/js/jquery, etc, just
   beet -g foo --prefix rails3 -r auth/devise, js/jquery
   * in fact, maybe make a .beetrc file where you can set a prefix permanently. 
+
+* use aruba to test beet - http://github.com/aslakhellesoy/aruba
