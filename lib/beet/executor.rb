@@ -1,7 +1,11 @@
 require 'open-uri'
 require 'beet/logger'
 require 'yaml'
-require 'ruby-debug'
+begin
+  require 'ruby-debug'
+rescue LoadError
+  # not required to actually run beet
+end
 
 module Beet
   class Executor
