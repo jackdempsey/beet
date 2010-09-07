@@ -56,11 +56,16 @@ module Beet
               system("rails new #{project_name}")
             end
           else
-            puts "Generating rails project #{project_name}..."
-            if @template
-              system("rails #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
+            unless rails2_version = search_for_rails_2
+              puts "Please create a rails2 command which points to rails 2.x executable."
+              exit
             else
-              system("rails #{project_name}")
+              puts "Generating rails project #{project_name}..."
+              if @template
+                system("rails _#{rails2_version}_ #{project_name} -m #{TEMPLATE_LOCATIONS[@template]}")
+              else
+                system("rails _#{rails2_version}_ #{project_name}")
+              end
             end
           end
         end
@@ -203,6 +208,13 @@ module Beet
         return filename if File.exists?(filename)
       end
       nil
+    end
+
+    def search_for_rails_2
+      rails_versions = `gem list rails`.chomp
+      clean_versions = rails_versions.match /\((.*)\)/
+      numbered_versions = clean_versions[1].split(', ')
+      numbered_versions.find {|v| v.split('.').first.to_i == 2}
     end
   end
 end
