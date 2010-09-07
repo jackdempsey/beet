@@ -9,9 +9,9 @@
 * figure out if its worth it to use similar step definitions as done in Jeweler for gems that generate stuff
 and want to verify things worked correctly
 
-* write some recipes for browsercms
-
-* work on ubuntu install ideas
-
 * create a "if gem_exists?('browsercms')" type method
+  * perhaps repurpose the search_for_rails_2 method to search for any installed gem
 
+* add ability to set --prefix rails3 so you're not typing rails3/auth/devise, rails3/js/jquery, etc, just
+  beet -g foo --prefix rails3 -r auth/devise, js/jquery
+  * in fact, maybe make a .beetrc file where you can set a prefix permanently. 
