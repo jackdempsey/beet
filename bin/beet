@@ -103,11 +103,11 @@ class BeetRunner < Thor
       Beet is used to quickly generate applications.
 
       Example:
-      beet generate example_app --recipes="rails/authlogic, rails/clean_files, rails/git"
+      beet generate example_app --recipes="rails3/auth/devise, rails3/clean_files, rails3/git"
 
       Same thing but shorter:
 
-      beet -g example_app -r=rails/authlogic,rails/clean_files,rails/git
+      beet -g example_app -r=rails3/auth/devise,rails3/clean_files,rails3/git
     } 
   end
 end
