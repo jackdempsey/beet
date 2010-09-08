@@ -8,4 +8,5 @@ platforms :ruby do
   end
 end
 
+gem "activesupport", "~> 3.0.0"
 gem "thor", "~> 0.14.0"
