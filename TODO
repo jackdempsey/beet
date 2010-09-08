@@ -19,6 +19,5 @@ and want to verify things worked correctly
 * use aruba to test beet - http://github.com/aslakhellesoy/aruba
 
 * write recipes for
-  * paperclip
   * multiple file uploads
   * facebook connect with devise - http://stackoverflow.com/questions/3580557/rails-3-using-devise-how-to-allow-someone-to-log-in-using-their-facebook-account
