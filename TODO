@@ -21,3 +21,5 @@ and want to verify things worked correctly
 * write recipes for
   * multiple file uploads
   * facebook connect with devise - http://stackoverflow.com/questions/3580557/rails-3-using-devise-how-to-allow-someone-to-log-in-using-their-facebook-account
+
+* add in a "recipe not found: #{recipe}" so when things don't run it doesn't silently fail
