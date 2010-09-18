@@ -17,7 +17,7 @@
     </div>
     <div id="main">
         
-        <div id="latest_version"><a href="#installing">0.6.7</a></div>
+        <div id="latest_version"><a href="#installing">0.6.8</a></div>
         
         <ul id="pagenav">
           <li><a href="#what">What</a></li>
@@ -79,6 +79,10 @@
 
           <div class='highlight'><pre>beet -d -r rails3/js/jquery</pre></div>
           <p>You can use -d/--display to display the content of a recipe or template.</p>
+
+          <div class='highlight'><pre>beet -j -r standalone/hades</pre></div>
+          <p>Right now the -g command is focused on building rails 3 apps. To skip that you can just use -j to run 'just' the recipe. This 
+            particular recipe hades lets you create skinny daemons as described in this post: <a href='http://labs.headlondon.com/2010/07/skinny-daemons/' target="_blank">http://labs.headlondon.com/2010/07/skinny-daemons/</a></p>
         </div>
 
         <h4>There's More</h4>
@@ -171,6 +175,10 @@
                 <li>shoulda</li>
               </ul>
             </ul>
+            <li>standalone</li>
+            <ul>
+              <li>hades</li>
+            </ul>
           </ul>
 
 
@@ -203,7 +211,7 @@
       </div>
     </div>
     <div id="footer">
-      <p id="copy">Page design and theme inspired by <a href='http://quirkey.github.com'>Quirkey</a>. Beet code &copy;2009 Jack Dempsey, LLC</p>
+      <p id="copy">Page design and theme inspired by <a href='http://quirkey.github.com'>Quirkey</a>. Beet code &copy;2010 Jack Dempsey, LLC</p>
     </div>
   </div>
   </body></html>
