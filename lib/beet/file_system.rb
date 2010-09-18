@@ -7,24 +7,20 @@ module Beet
     #
     # ==== Examples
     #
-    #   file("lib/fun_party.rb") do
-    #     hostname = ask("What is the virtual hostname I should use?")
-    #     "vhost.name = #{hostname}"
-    #   end
+    # file("lib/fun_party.rb") do
+    #   hostname = ask("What is the virtual hostname I should use?")
+    #   "vhost.name = #{hostname}"
+    # end
     #
-    #   file("config/apach.conf", "your apache config")
-    #
+    # file("config/apach.conf", "your apache config")
     def file(filename, data = nil, log_action = true, &block)
       log 'file', filename if log_action
       dir, file = [File.dirname(filename), File.basename(filename)]
 
       inside(dir) do
         File.open(file, "w") do |f|
-          if block_given?
-            f.write(block.call)
-          else
-            f.write(data)
-          end
+          data = block.call if block_given?
+          f.write(remove_blank_start(data))
         end
       end
     end
@@ -153,5 +149,15 @@ module Beet
       File.join(root, relative_destination)
     end
 
+    # it's common for multi-line strings to be coded in a way so that their first character is a newline
+    # like this
+    # string = %{
+    # foo
+    # }
+    # string => "\nfoo\n"
+    # This is bad when it needs to be #!/usr/bin/something so we remove that newline in a dumb but effective way for now
+    def remove_blank_start(string)
+      string.reverse.chomp.reverse
+    end
   end
 end
