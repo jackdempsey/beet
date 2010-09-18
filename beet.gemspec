@@ -68,6 +68,7 @@ Gem::Specification.new do |s|
      "lib/beet/recipes/rails/testing/rspec.rb",
      "lib/beet/recipes/rails/testing/shoulda.rb",
      "lib/beet/recipes/rails3/admin_interface/active_scaffold.rb",
+     "lib/beet/recipes/rails3/admin_interface/rails_admin.rb",
      "lib/beet/recipes/rails3/auth/devise.rb",
      "lib/beet/recipes/rails3/clean_files.rb",
      "lib/beet/recipes/rails3/css/reset.rb",
