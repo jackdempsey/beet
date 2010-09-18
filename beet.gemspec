@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jack Dempsey"]
-  s.date = %q{2010-09-09}
+  s.date = %q{2010-09-18}
   s.default_executable = %q{beet}
   s.email = %q{jack.dempsey@gmail.com}
   s.executables = ["beet"]
@@ -78,6 +78,7 @@ Gem::Specification.new do |s|
      "lib/beet/recipes/rails3/js/jquery.rb",
      "lib/beet/recipes/rails3/testing/cucumber.rb",
      "lib/beet/recipes/rails3/testing/rspec.rb",
+     "lib/beet/recipes/standalone/hades.rb",
      "lib/beet/scm.rb",
      "lib/beet/scm/git.rb",
      "lib/beet/scm/svn.rb",
