@@ -63,6 +63,10 @@ module Beet
     # Passes gem info along to gemfile method that handles adding it in
     def gem(name, options = {})
       log 'gem', name
+      if File.read("Gemfile").include?(name)
+        log "Error", "File matches on '#{name}'. Skipping for now."
+        return
+      end
       group = options.delete(:group) || @_gem_group
       version = options.delete(:version)
 
