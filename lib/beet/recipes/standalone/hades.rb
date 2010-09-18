@@ -1,7 +1,10 @@
 require 'fileutils'
 require 'active_support/core_ext/string/inflections'
 
-#TODO need sinatra, jeweler, and thin installed to work
+run "gem install thin" if `which thin` == ''
+run "gem install jeweler" if `which jeweler` == ''
+run "gem install sinatra" if `gem list sinatra | grep sinatra` == ''
+
 name = ask "Project name: "
 run "jeweler #{name}"
 
