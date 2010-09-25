@@ -6,16 +6,16 @@ underscored_model_name = model_name.underscore
 
 in_root do
   if File.exists?("app/models/#{model_name}.rb")
-    table_name = underscored_model_name.pluralize
+    table_name = model_name.tableize
 
     generate "migration add_#{attachment_name}_to_#{table_name}"
     migration_file = Dir["db/migrate/*add_#{attachment_name}_to_#{table_name}*"].first
-    add_after "db/migrate/#{migration_file}.rb", 'def self.up', do
+    add_after migration_file, 'def self.up', do
       %{
-        add_column :#{table_name}, #{attachment_name}_file_name:string
-        add_column :#{table_name}, #{attachment_name}_content_type:string
-        add_column :#{table_name}, #{attachment_name}_file_size:integer
-        add_column :#{table_name}, #{attachment_name}_updated_at:datetime
+        add_column :#{table_name}, :#{attachment_name}_file_name, :string
+        add_column :#{table_name}, :#{attachment_name}_content_type, :string
+        add_column :#{table_name}, :#{attachment_name}_file_size, :integer
+        add_column :#{table_name}, :#{attachment_name}_updated_at, :datetime
       }
     end
   else
