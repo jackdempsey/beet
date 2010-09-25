@@ -10,4 +10,4 @@ require 'beet/gem_location_map'
 require 'beet/template_location_map'
 
 # for camelize and others
-require 'active_support/core_ext/string/inflections'
+require 'active_support/inflector'
